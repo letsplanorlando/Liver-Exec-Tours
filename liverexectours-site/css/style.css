@@ -398,6 +398,9 @@ form.enquiry {
 .enquiry textarea { min-height: 110px; resize: vertical; }
 .enquiry .btn { margin-top: 24px; width: 100%; }
 .enquiry .form-note { font-size: 0.78rem; color: var(--grey); margin-top: 14px; }
+.enquiry .form-status { font-size: 0.85rem; margin-top: 14px; min-height: 1.2em; }
+.enquiry .form-status.success { color: #7fd99a; }
+.enquiry .form-status.error { color: #e0847a; }
 
 /* ---------- Footer ---------- */
 .site-footer {

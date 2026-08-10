@@ -105,7 +105,7 @@
     <div class="grid grid-3" style="margin-top:40px;">
       <div class="card fleet-card">
         <div class="photo-placeholder">
-          <span class="ph-label">Photo coming soon &mdash; Mercedes Vito</span>
+          <img src="images/fleet/mercedes-vito.jpg" alt="Liver Exec Tours Mercedes Vito outside the Liver Building" loading="lazy">
         </div>
         <h3>Mercedes Vito <span style="color:var(--grey); font-weight:400; font-size:0.85rem;">(2018)</span></h3>
         <p>Comfortable executive travel for small groups.</p>
@@ -218,7 +218,8 @@
         <textarea id="message" name="message" placeholder="Dates, times, pickup/drop-off, group size..." required></textarea>
 
         <button type="submit" class="btn btn-primary">Send Enquiry</button>
-        <p class="form-note">This opens your email app with the details pre-filled &mdash; nothing is sent automatically. Prefer to talk it through? Call <a href="tel:+447540838531" style="color:var(--gold-light);">07540 838531</a>.</p>
+        <p class="form-status" aria-live="polite"></p>
+        <p class="form-note">Prefer to talk it through? Call <a href="tel:+447540838531" style="color:var(--gold-light);">07540 838531</a>.</p>
       </form>
     </div>
   </div>
@@ -256,6 +257,14 @@
   </div>
 </footer>
 
+<script>
+  // Fill these in from Supabase Dashboard → Project Settings → API,
+  // then the enquiry form below will submit into the `enquiries` table
+  // (see supabase/enquiries.sql) instead of just opening a mail client.
+  window.SUPABASE_URL = "";
+  window.SUPABASE_ANON_KEY = "";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
