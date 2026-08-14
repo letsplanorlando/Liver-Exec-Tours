@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     toggle.addEventListener('click', function () {
       links.classList.toggle('open');
     });
+    // Close the mobile menu after tapping a link
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        links.classList.remove('open');
+      });
+    });
   }
 
   // Set current year in footer (runs in the visitor's browser)

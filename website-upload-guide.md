@@ -1,46 +1,47 @@
-# Getting the website live on BigWetFish
+# Getting the redesigned website live on BigWetFish
 
-Your site is built and ready — a single scrolling page (Home / Services / Fleet / About / Contact, all on one page with a nav that jumps to each section), fully responsive, no ongoing costs beyond the hosting you already have. Here's how to get it live.
+*Updated 2026-08-14 — this replaces the previous version of this guide. The site has been completely redesigned (new "Waterfront" look: ivory/navy/brass, real Liverpool waterfront photography of the fleet) but the upload process is unchanged since you're staying on BigWetFish manual upload.*
 
 ## 1. Upload the files
 
 1. Log in to your BigWetFish account and open the **Enhance** control panel for liverexectours.com.
 2. Look for **File Manager** (sometimes under "Files" or "Website").
 3. Navigate to your site's web root — usually called `public_html`, `htdocs`, or just `/` depending on how Enhance labels it.
-4. If there's an existing blank `index.html` (or similar) sitting there, delete or rename it.
-5. Unzip `liverexectours-site.zip` on your own computer first, then upload the **contents** of the `liverexectours-site` folder (not the folder itself) into that web root — you should end up with `index.html` and the `css`, `js`, `images` folders all sitting directly in the web root.
+4. Delete or rename whatever's currently there (the blank placeholder page).
+5. Upload the **contents** of the `liverexectours-site` folder (not the folder itself) into that web root — you should end up with `index.html` and the `css`, `js`, `images` folders all sitting directly in the web root.
 6. Visit liverexectours.com in a browser to check it's live. It can take a few minutes to update.
 
-If File Manager doesn't accept a zip upload directly, most panels let you upload the zip and then "extract" it in place — look for an extract/unzip option after uploading.
+If File Manager doesn't accept a folder upload directly, zip the contents of `liverexectours-site` first, upload the zip, then look for an "extract" option after uploading.
 
-## 2. Adding your fleet photos (after this weekend's shoot)
+## 2. What changed in this redesign
 
-Right now, everywhere a vehicle photo will go, the site shows a placeholder box that says "Photo coming soon." To swap in a real photo:
+- New colour palette (warm ivory/stone with deep navy and a brass accent) and new typefaces (Fraunces for headings, Work Sans for body text) — a different visual direction from the old dark charcoal/gold version.
+- Real photos now used throughout instead of placeholders: the Vito and Sprinter both have dedicated shots taken outside the Royal Liver Building, and the hero banner uses a shot with the actual Liver Building clock tower.
+- The **Lexus SUV** still has no photo — it shows a styled "Photo coming soon" card rather than a broken image. Same for adding one later:
+  1. Take/select a photo (landscape orientation works best, roughly 1400×1050px, under 400KB for fast loading).
+  2. Name it `fleet-lexus.jpg` and upload it into the `images` folder via File Manager.
+  3. In `index.html`, find the Lexus card in the Fleet section — it currently looks like this:
 
-1. Pick your best shot for each vehicle (recommended: landscape orientation, roughly 1200×900px, under 1MB each for fast loading).
-2. Name them clearly, e.g. `vito.jpg`, `lexus.jpg`, `sprinter.jpg`, and upload them into the `images` folder via File Manager.
-3. In each page's HTML where you see a block like this:
+     ```html
+     <div class="fleet-photo fleet-photo-placeholder">
+       <span class="ph-label">Photo coming soon</span>
+       <span class="ph-sub">Lexus SUV</span>
+     </div>
+     ```
 
-   ```html
-   <div class="photo-placeholder">
-     <span class="ph-label">Photo coming soon &mdash; Mercedes Vito</span>
-   </div>
-   ```
+     Replace it with:
 
-   Replace it with:
+     ```html
+     <div class="fleet-photo">
+       <img src="images/fleet-lexus.jpg" alt="Liver Exec Tours Lexus SUV" loading="lazy" width="1400" height="1050">
+     </div>
+     ```
 
-   ```html
-   <div class="photo-placeholder">
-     <img src="images/vito.jpg" alt="Mercedes Vito">
-   </div>
-   ```
-
-   Most file managers have a built-in code editor — click the file, find that block, and edit directly in the browser. No need to re-upload the whole site.
-
-4. There are 4 placeholders in total, all in `index.html`: three in the Fleet section (Vito, Lexus, Sprinter) and one in the About section (team/driver photo). Happy to do this edit for you directly once you've got the photos — just share them here.
+     Most file managers have a built-in code editor — click the file, find that block, and edit directly in the browser. Happy to do this edit for you directly once you've got the photo — just share it here.
 
 ## 3. A couple of things worth knowing
 
-- **The contact form** doesn't have a backend (there's no server behind this site, which is what keeps it free) — when a visitor submits it, it opens their own email app with the message pre-filled, addressed to Liverexectours@gmail.com. It works, but it's an extra step for the visitor. If you want a smoother "submits without opening email" experience later, a free tier of a form service like Formspree can be dropped in — just ask and I'll wire it up.
+- **The contact form** submits into a Supabase database when `SUPABASE_URL` / `SUPABASE_ANON_KEY` are filled in near the bottom of `index.html` (currently blank) — until then it falls back to opening the visitor's email app with the message pre-filled. Ask if you want help getting the Supabase keys wired in.
 - **The phone number and email** throughout the site come from what's on the Google Business Profile (07540 838531 / Liverexectours@gmail.com). If either changes, it's all in the one `index.html` file (search-and-replace, or ask me to update it).
 - **Nothing on this site names Carlsberg or Boodles** — it uses the "trusted by leading Liverpool corporates and retail brands" line, consistent with the Business Profile and the open decision on client-showcase approach.
+- This folder (not the Claude Project) is now the source of truth for the website — see `CLAUDE.md` in the folder root for full status.
