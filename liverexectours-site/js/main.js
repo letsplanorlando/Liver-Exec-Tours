@@ -81,4 +81,76 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
   }
+
+  // ---- Hero scroll-scrub video ---------------------------------------
+  // Scrubs the hero video's currentTime to match scroll position through
+  // a pinned runway. Never calls .play() — the video only ever seeks, so
+  // it naturally holds on whatever frame the visitor stops scrolling at.
+  // Progressively enhanced: if the browser lacks IntersectionObserver, or
+  // the visitor has requested reduced motion, the hero simply stays as a
+  // normal single-viewport section showing the poster/first frame — see
+  // the base (non `.scrub-active`) styles in css/style.css.
+  (function initHeroScrub() {
+    var section = document.querySelector('[data-hero-scrub]');
+    if (!section) return;
+    var video = section.querySelector('.hero-scrub-video');
+    if (!video) return;
+
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+    var ready = false;
+    var duration = 0;
+    var inView = false;
+    var ticking = false;
+    var lastTarget = -1;
+
+    function onMetadata() {
+      duration = video.duration;
+      if (duration && isFinite(duration) && duration > 0) {
+        ready = true;
+        section.classList.add('scrub-active');
+        requestTick();
+      }
+    }
+    video.addEventListener('loadedmetadata', onMetadata);
+    if (video.readyState >= 1 && video.duration) onMetadata();
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        inView = entry.isIntersecting;
+        if (inView) requestTick();
+      });
+    }, { threshold: 0 });
+    observer.observe(section);
+
+    function updateScrub() {
+      ticking = false;
+      if (!ready || !inView) return;
+      var rect = section.getBoundingClientRect();
+      var runway = rect.height - window.innerHeight;
+      if (runway <= 0) return;
+      var progress = (0 - rect.top) / runway;
+      if (progress < 0) progress = 0;
+      if (progress > 1) progress = 1;
+      var target = progress * (duration - 0.05);
+      // Skip near-duplicate seeks so we're not fighting the decoder on
+      // every single scroll tick.
+      if (Math.abs(target - lastTarget) > 0.03) {
+        try { video.currentTime = target; } catch (e) { /* ignore seek errors */ }
+        lastTarget = target;
+      }
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateScrub);
+      }
+    }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    window.addEventListener('resize', requestTick);
+  })();
 });
