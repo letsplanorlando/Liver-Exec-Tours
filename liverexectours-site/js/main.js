@@ -153,4 +153,103 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', requestTick, { passive: true });
     window.addEventListener('resize', requestTick);
   })();
+
+  // ---- Cinematic hero title fade-in + header reveal on scroll -------
+  (function initCinematicFadeAndHeader() {
+    var cinematicHero = document.querySelector('.hero-scrub-cinematic');
+    if (!cinematicHero) return;
+
+    // Fade the title/buttons in shortly after the page settles.
+    window.requestAnimationFrame(function () {
+      setTimeout(function () {
+        cinematicHero.classList.add('fade-in');
+      }, 900);
+    });
+
+    // Reveal the header once the visitor has scrolled past the hero,
+    // hide it again if they scroll back up into it. Uses the same
+    // rect-based progress math as the video scrub above, so the header
+    // appears at the exact moment the pinned hero releases — not some
+    // arbitrary distance later — and it works whether or not the pin
+    // ever activates (e.g. reduced-motion / no-video fallback), where
+    // it just falls back to a plain "scrolled past this section" check.
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+
+    var headerTicking = false;
+    function updateHeader() {
+      headerTicking = false;
+      var rect = cinematicHero.getBoundingClientRect();
+      var runway = rect.height - window.innerHeight;
+      var pastHero = runway > 0
+        ? (0 - rect.top) / runway >= 0.99
+        : rect.bottom <= 0;
+      header.classList.toggle('header-visible', pastHero);
+    }
+    function requestHeaderTick() {
+      if (!headerTicking) {
+        headerTicking = true;
+        requestAnimationFrame(updateHeader);
+      }
+    }
+    window.addEventListener('scroll', requestHeaderTick, { passive: true });
+    window.addEventListener('resize', requestHeaderTick);
+    requestHeaderTick();
+  })();
+
+  // ---- Hero enquiry bar → WhatsApp / Email ---------------------------
+  // Not a live quote engine — just packages up what the visitor typed
+  // and hands it to their own WhatsApp or email client to send to us.
+  (function initHeroEnquiryBar() {
+    var bar = document.getElementById('hero-enquiry-bar');
+    if (!bar) return;
+
+    var WHATSAPP_NUMBER = '447808299060';
+    var EMAIL_ADDRESS = 'Liverexectours@gmail.com';
+
+    function fieldVal(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    function formatDate(value) {
+      if (!value) return '';
+      var parts = value.split('-');
+      if (parts.length !== 3) return value;
+      return parts[2] + '/' + parts[1] + '/' + parts[0];
+    }
+
+    function buildMessage() {
+      var pickup = fieldVal('he-pickup');
+      var dropoff = fieldVal('he-dropoff');
+      var date = formatDate(fieldVal('he-date'));
+      var time = fieldVal('he-time');
+
+      var lines = ['Hi, I\'d like to enquire about a journey:'];
+      lines.push('Pickup: ' + (pickup || 'Not specified'));
+      lines.push('Drop-off: ' + (dropoff || 'Not specified'));
+      if (date) lines.push('Date: ' + date);
+      if (time) lines.push('Pickup time: ' + time);
+
+      return { pickup: pickup, dropoff: dropoff, text: lines.join('\n') };
+    }
+
+    bar.querySelectorAll('[data-send]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var msg = buildMessage();
+        if (!msg.pickup && !msg.dropoff) {
+          document.getElementById('he-pickup').focus();
+          return;
+        }
+        if (btn.getAttribute('data-send') === 'whatsapp') {
+          var waUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg.text);
+          window.open(waUrl, '_blank', 'noopener');
+        } else {
+          var subject = encodeURIComponent('Journey enquiry from liverexectours.com');
+          var body = encodeURIComponent(msg.text);
+          window.location.href = 'mailto:' + EMAIL_ADDRESS + '?subject=' + subject + '&body=' + body;
+        }
+      });
+    });
+  })();
 });

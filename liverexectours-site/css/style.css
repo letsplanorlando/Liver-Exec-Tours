@@ -6,7 +6,7 @@
   --ivory: #F4EFE6;
   --ivory-dark: #EAE2D3;
   --white: #FFFFFF;
-  --brass: #A8632E;
+  --brass: #C4973A;
   --brass-light: #C98B4D;
   --ink: #1B2130;
   --grey: #6B6459;
@@ -98,13 +98,25 @@ a { color: inherit; text-decoration: none; }
 .btn-outline:hover { background: var(--navy); color: var(--white); }
 
 /* ---------- header ---------- */
+/* Hidden + fixed until the visitor scrolls past the hero, then fades in.
+   Fixed so it doesn't occupy layout space while hidden — the hero runs
+   flush to the very top of the page. */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   background: rgba(244, 239, 230, 0.92);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.site-header.header-visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 .nav {
   display: flex;
@@ -188,48 +200,143 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   background: linear-gradient(180deg, rgba(16,25,43,0.6) 0%, rgba(16,25,43,0.4) 45%, rgba(16,25,43,0.8) 100%);
 }
-.hero-scrub-copy {
+.btn-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 28px 0 40px; }
+
+/* Cinematic hero: title + two buttons fade in over the video image
+   instead of a full headline/lead block. */
+.hero-scrub-cinematic { margin-top: 0; }
+.hero-scrub-fade {
   position: relative;
   z-index: 2;
-  color: var(--ivory);
-}
-.hero-scrub-copy h1 { color: var(--white); }
-.hero-scrub-copy .eyebrow { color: var(--brass-light); }
-.hero-scrub-copy .lead {
-  font-size: 1.15rem;
-  color: rgba(244,239,230,0.88);
-  max-width: 560px;
-}
-.btn-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 28px 0 40px; }
-.hero-stats {
+  width: 100%;
+  height: 100%;
   display: flex;
-  gap: 36px;
-  margin: 0;
-  padding-top: 28px;
-  border-top: 1px solid rgba(244,239,230,0.25);
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1.6s ease;
 }
-.hero-stats > div { min-width: 110px; }
-.hero-stats dt {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 700;
+.hero-scrub-cinematic.fade-in .hero-scrub-fade {
+  opacity: 1;
+}
+.hero-scrub-title-wrap {
+  text-align: center;
+}
+.hero-scrub-title {
   color: var(--white);
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  margin-bottom: 32px;
+}
+.hero-scrub-title span { color: var(--brass-light); }
+.hero-scrub-btns {
+  justify-content: center;
   margin: 0;
 }
-.hero-stats dd {
-  margin: 2px 0 0;
-  font-size: 0.85rem;
-  color: rgba(244,239,230,0.75);
-}
-.hero-scrub-copy .btn-outline {
+.hero-scrub-btns .btn-outline {
   border-color: rgba(244,239,230,0.75);
   color: var(--white);
 }
-.hero-scrub-copy .btn-outline:hover {
+.hero-scrub-btns .btn-outline:hover {
   background: var(--white);
   color: var(--navy);
 }
+
+/* Hero enquiry bar — compact pickup/drop-off/date/time lead form that
+   sends via WhatsApp or email instead of a live pricing engine. */
+.hero-enquiry-bar {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 22px;
+  background: rgba(16, 25, 43, 0.55);
+  border: 1px solid rgba(244, 239, 230, 0.18);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: left;
+}
+.hero-enquiry-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 180px;
+  min-width: 150px;
+}
+.hero-enquiry-field-narrow {
+  flex: 0 1 140px;
+  min-width: 130px;
+}
+.hero-enquiry-field label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(244, 239, 230, 0.7);
+}
+.hero-enquiry-field input {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  padding: 10px 12px;
+  border: 1.5px solid rgba(244, 239, 230, 0.25);
+  border-radius: 6px;
+  background: rgba(244, 239, 230, 0.08);
+  color: var(--white);
+}
+.hero-enquiry-field input::placeholder { color: rgba(244, 239, 230, 0.45); }
+.hero-enquiry-field input:focus {
+  outline: none;
+  border-color: var(--brass-light);
+  background: rgba(244, 239, 230, 0.14);
+}
+.hero-enquiry-field input[type="date"],
+.hero-enquiry-field input[type="time"] {
+  color-scheme: dark;
+}
+.hero-enquiry-send {
+  display: flex;
+  gap: 10px;
+  flex: 1 1 100%;
+  margin-top: 4px;
+}
+@media (min-width: 860px) {
+  .hero-enquiry-send {
+    flex: 0 0 auto;
+    margin-top: 0;
+  }
+}
+.hero-enquiry-send-btn {
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.hero-enquiry-send .btn-outline {
+  border-color: rgba(244, 239, 230, 0.75);
+  color: var(--white);
+}
+.hero-enquiry-send .btn-outline:hover {
+  background: var(--white);
+  color: var(--navy);
+}
+.hero-enquiry-note {
+  margin: 14px 0 0;
+  font-size: 0.82rem;
+  color: rgba(244, 239, 230, 0.65);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .hero-enquiry-bar {
+    padding: 16px;
+    gap: 12px;
+  }
+  .hero-enquiry-field,
+  .hero-enquiry-field-narrow {
+    flex: 1 1 100%;
+  }
+}
+
 .hero-scrub-hint {
   position: absolute;
   z-index: 2;
@@ -385,6 +492,16 @@ a { color: inherit; text-decoration: none; }
   box-shadow: var(--shadow);
 }
 .about-copy p { color: var(--grey); }
+.about-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 32px;
+}
+.about-cols p { color: var(--grey); margin: 0; }
+@media (max-width: 720px) {
+  .about-cols { grid-template-columns: 1fr; gap: 20px; }
+}
 
 /* ---------- contact ---------- */
 .contact-grid {
