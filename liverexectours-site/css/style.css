@@ -408,18 +408,20 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   padding: 96px 0;
   overflow: hidden;
-}
-.faq-bg-img {
-  position: absolute;
-  inset: 0;
   background-image: url('../images/faqphotomobile.jpeg');
   background-size: cover;
-  background-position: center;
+  background-position: center top;
 }
+/* On desktop, anchor the photo to the viewport so it never moves when FAQs expand */
+@media (hover: hover) and (min-width: 721px) {
+  .faq-section { background-attachment: fixed; }
+}
+.faq-bg-img { display: none; }
 .faq-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(16,25,43,0.82) 0%, rgba(16,25,43,0.70) 100%);
+  pointer-events: none;
 }
 .faq-container { position: relative; z-index: 1; }
 .faq-eyebrow { color: var(--brass-light); }
