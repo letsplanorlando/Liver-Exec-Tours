@@ -389,7 +389,7 @@ a { color: inherit; text-decoration: none; }
     object-position: center top;
     z-index: 0;
     opacity: 0;
-    animation: mobileHeroFadeIn 1.5s ease-out 0.2s forwards;
+    transition: opacity 1.5s ease-out;
   }
 }
 
@@ -405,16 +405,19 @@ a { color: inherit; text-decoration: none; }
 .faq-section {
   position: relative;
   padding: 96px 0;
-  overflow: hidden;
+  background: var(--navy);
+}
+.faq-bg-img {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  /* Fixed height — never grows when accordion expands */
+  height: 100vh;
+  min-height: 100%;
   background-image: url('../images/faqphotomobile.jpeg');
   background-size: cover;
   background-position: center top;
+  z-index: 0;
 }
-/* On desktop, anchor the photo to the viewport so it never moves when FAQs expand */
-@media (hover: hover) and (min-width: 721px) {
-  .faq-section { background-attachment: fixed; }
-}
-.faq-bg-img { display: none; }
 .faq-overlay {
   position: absolute;
   inset: 0;

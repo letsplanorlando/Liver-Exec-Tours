@@ -202,6 +202,17 @@ document.addEventListener('DOMContentLoaded', function () {
     requestHeaderTick();
   })();
 
+  // ---- Mobile hero fade-in ------------------------------------------
+  // CSS animations can be unreliable on mobile — trigger via JS instead.
+  (function initMobileHeroReveal() {
+    if (window.innerWidth > 720) return;
+    var img = document.querySelector('.hero-mobile-img');
+    if (!img) return;
+    setTimeout(function () {
+      img.style.opacity = '1';
+    }, 200);
+  })();
+
   // ---- FAQ accordion ------------------------------------------------
   document.querySelectorAll('.faq-q').forEach(function (btn) {
     btn.addEventListener('click', function () {
