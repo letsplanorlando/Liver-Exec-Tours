@@ -391,12 +391,9 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* Mobile hero image — hidden on desktop, fades in from black on mobile. */
-.hero-mobile-img { display: none; }
-
-@keyframes mobileHeroFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* Mobile hero image — only shown on mobile, hidden on desktop. */
+@media (min-width: 721px) {
+  .hero-mobile-img { display: none; }
 }
 
 /* ---------- FAQ section ---------- */
