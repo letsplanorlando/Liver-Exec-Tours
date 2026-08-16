@@ -100,38 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
 
-    // Mobile: sticky-pinned hero with parallax on the img instead of video scrub.
-    // The scrub-active class locks the hero in place during the scroll runway,
-    // then releases into the page — same mechanic as desktop, no video needed.
-    if (window.innerWidth <= 720) {
-      var mobileImg = section.querySelector('.hero-mobile-img');
-      if (!mobileImg) return;
-      section.classList.add('scrub-active');
-
-      var mInView = false, mTicking = false;
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          mInView = e.isIntersecting;
-          if (mInView) mRequestTick();
-        });
-      }, { threshold: 0 }).observe(section);
-
-      function updateMobileParallax() {
-        mTicking = false;
-        if (!mInView) return;
-        var rect = section.getBoundingClientRect();
-        var runway = rect.height - window.innerHeight;
-        if (runway <= 0) return;
-        var progress = Math.max(0, Math.min(1, (0 - rect.top) / runway));
-        mobileImg.style.transform = 'translateY(' + Math.round(progress * -60) + 'px)';
-      }
-      function mRequestTick() {
-        if (!mTicking) { mTicking = true; requestAnimationFrame(updateMobileParallax); }
-      }
-      window.addEventListener('scroll', mRequestTick, { passive: true });
-      window.addEventListener('resize', mRequestTick);
-      return;
-    }
+    // Mobile: static hero with fade-in photo — skip video scrub entirely.
+    if (window.innerWidth <= 720) return;
 
     var ready = false;
     var duration = 0;

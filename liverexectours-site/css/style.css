@@ -382,16 +382,14 @@ a { color: inherit; text-decoration: none; }
   .hero-mobile-img {
     display: block;
     position: absolute;
-    /* extend beyond the pin so parallax movement doesn't show edges */
-    top: -80px; left: 0; right: 0; bottom: -80px;
+    inset: 0;
     width: 100%;
-    height: calc(100% + 160px);
+    height: 100%;
     object-fit: cover;
     object-position: center top;
     z-index: 0;
     opacity: 0;
     animation: mobileHeroFadeIn 1.5s ease-out 0.2s forwards;
-    will-change: transform;
   }
 }
 
