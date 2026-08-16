@@ -333,12 +333,24 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 720px) {
   .hero-enquiry-bar {
-    padding: 16px;
-    gap: 12px;
+    padding: 12px;
+    gap: 8px;
   }
-  .hero-enquiry-field,
-  .hero-enquiry-field-narrow {
+  /* Pickup & drop-off stay full width */
+  .hero-enquiry-field {
     flex: 1 1 100%;
+  }
+  /* Date & time sit side-by-side */
+  .hero-enquiry-field-narrow {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+  }
+  /* Send buttons side-by-side on mobile too */
+  .hero-enquiry-send {
+    flex-direction: row;
+  }
+  .hero-enquiry-send .btn {
+    flex: 1;
   }
 }
 
@@ -727,14 +739,6 @@ a { color: inherit; text-decoration: none; }
   .section { padding: 64px 0; }
   .service-row { grid-template-columns: 50px 1fr; }
 
-  /* Hero enquiry send buttons: stack vertically, full width */
-  .hero-enquiry-send {
-    flex-direction: column;
-  }
-  .hero-enquiry-send .btn {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 @media (max-width: 480px) {
