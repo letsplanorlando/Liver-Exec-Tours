@@ -99,7 +99,39 @@ document.addEventListener('DOMContentLoaded', function () {
     var reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
-    if (window.innerWidth <= 720) return;
+
+    // Mobile: sticky-pinned hero with parallax on the img instead of video scrub.
+    // The scrub-active class locks the hero in place during the scroll runway,
+    // then releases into the page — same mechanic as desktop, no video needed.
+    if (window.innerWidth <= 720) {
+      var mobileImg = section.querySelector('.hero-mobile-img');
+      if (!mobileImg) return;
+      section.classList.add('scrub-active');
+
+      var mInView = false, mTicking = false;
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          mInView = e.isIntersecting;
+          if (mInView) mRequestTick();
+        });
+      }, { threshold: 0 }).observe(section);
+
+      function updateMobileParallax() {
+        mTicking = false;
+        if (!mInView) return;
+        var rect = section.getBoundingClientRect();
+        var runway = rect.height - window.innerHeight;
+        if (runway <= 0) return;
+        var progress = Math.max(0, Math.min(1, (0 - rect.top) / runway));
+        mobileImg.style.transform = 'translateY(' + Math.round(progress * -60) + 'px)';
+      }
+      function mRequestTick() {
+        if (!mTicking) { mTicking = true; requestAnimationFrame(updateMobileParallax); }
+      }
+      window.addEventListener('scroll', mRequestTick, { passive: true });
+      window.addEventListener('resize', mRequestTick);
+      return;
+    }
 
     var ready = false;
     var duration = 0;
@@ -160,9 +192,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var cinematicHero = document.querySelector('.hero-scrub-cinematic');
     if (!cinematicHero) return;
 
-    // On mobile the hero does a cinematic black reveal (2s) before text appears.
+    // On mobile the photo fades in over 1.5s — text starts at 80% through (1200ms).
     // On desktop, text fades in after a short settle delay.
-    var fadeDelay = window.innerWidth <= 720 ? 1800 : 900;
+    var fadeDelay = window.innerWidth <= 720 ? 1200 : 900;
     window.requestAnimationFrame(function () {
       setTimeout(function () {
         cinematicHero.classList.add('fade-in');
@@ -216,19 +248,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
-
-  // ---- Mobile hero parallax -----------------------------------------
-  // Subtle background-position shift as the visitor scrolls past the hero.
-  // Uses background-position-y rather than transform so it works without
-  // a separate element, and passive scroll for perf.
-  (function initMobileParallax() {
-    if (window.innerWidth > 720) return;
-    var pin = document.querySelector('.hero-scrub-pin');
-    if (!pin) return;
-    window.addEventListener('scroll', function () {
-      pin.style.backgroundPositionY = 'calc(top + ' + Math.round(window.scrollY * 0.25) + 'px)';
-    }, { passive: true });
-  })();
 
   // ---- Hero enquiry bar → WhatsApp / Email ---------------------------
   // Not a live quote engine — just packages up what the visitor typed
