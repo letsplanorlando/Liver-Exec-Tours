@@ -375,6 +375,94 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 720px) {
   .hero-scrub.scrub-active { height: 200vh; }
+
+  /* On mobile: swap the video for the static hero photo. */
+  .hero-scrub-video { display: none; }
+  .hero-scrub-pin {
+    background-image: url('../images/hero-mobile2.jpg');
+    background-size: cover;
+    background-position: center top;
+  }
+  /* Activate the cinematic black reveal cover */
+  .hero-reveal-cover {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: #000;
+    z-index: 10;
+    pointer-events: none;
+    animation: heroReveal 2s ease-out forwards;
+  }
+}
+
+/* Mobile cinematic black cover — fades out over 2s to reveal the photo,
+   only active on mobile where the video scrub is replaced by a static image. */
+.hero-reveal-cover {
+  display: none;
+}
+
+@keyframes heroReveal {
+  0%   { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* ---------- FAQ section ---------- */
+.faq-section {
+  position: relative;
+  padding: 96px 0;
+  overflow: hidden;
+}
+.faq-bg-img {
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/bothvehicleslandscape.jpg');
+  background-size: cover;
+  background-position: center;
+}
+.faq-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(16,25,43,0.82) 0%, rgba(16,25,43,0.70) 100%);
+}
+.faq-container { position: relative; z-index: 1; }
+.faq-eyebrow { color: var(--brass-light); }
+.faq-heading { color: var(--white); margin-bottom: 40px; }
+.faq-list { max-width: 720px; }
+.faq-item { border-bottom: 1px solid rgba(244,239,230,0.15); }
+.faq-item:first-child { border-top: 1px solid rgba(244,239,230,0.15); }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 20px 0;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-q:hover { color: var(--brass-light); }
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--brass-light);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+  font-family: var(--sans);
+  line-height: 1;
+}
+.faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  padding: 0 0 20px;
+  color: rgba(244,239,230,0.82);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  max-width: 640px;
 }
 
 /* ---------- trust strip (legacy, unused but kept for compatibility) --- */

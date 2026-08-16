@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) return;
+    if (window.innerWidth <= 720) return;
 
     var ready = false;
     var duration = 0;
@@ -159,11 +160,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var cinematicHero = document.querySelector('.hero-scrub-cinematic');
     if (!cinematicHero) return;
 
-    // Fade the title/buttons in shortly after the page settles.
+    // On mobile the hero does a cinematic black reveal (2s) before text appears.
+    // On desktop, text fades in after a short settle delay.
+    var fadeDelay = window.innerWidth <= 720 ? 1800 : 900;
     window.requestAnimationFrame(function () {
       setTimeout(function () {
         cinematicHero.classList.add('fade-in');
-      }, 900);
+      }, fadeDelay);
     });
 
     // Reveal the header once the visitor has scrolled past the hero,
@@ -195,6 +198,36 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', requestHeaderTick, { passive: true });
     window.addEventListener('resize', requestHeaderTick);
     requestHeaderTick();
+  })();
+
+  // ---- FAQ accordion ------------------------------------------------
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // Close all
+      document.querySelectorAll('.faq-q').forEach(function (other) {
+        other.setAttribute('aria-expanded', 'false');
+        other.nextElementSibling.hidden = true;
+      });
+      // Open this one if it was closed
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.nextElementSibling.hidden = false;
+      }
+    });
+  });
+
+  // ---- Mobile hero parallax -----------------------------------------
+  // Subtle background-position shift as the visitor scrolls past the hero.
+  // Uses background-position-y rather than transform so it works without
+  // a separate element, and passive scroll for perf.
+  (function initMobileParallax() {
+    if (window.innerWidth > 720) return;
+    var pin = document.querySelector('.hero-scrub-pin');
+    if (!pin) return;
+    window.addEventListener('scroll', function () {
+      pin.style.backgroundPositionY = 'calc(top + ' + Math.round(window.scrollY * 0.25) + 'px)';
+    }, { passive: true });
   })();
 
   // ---- Hero enquiry bar → WhatsApp / Email ---------------------------
