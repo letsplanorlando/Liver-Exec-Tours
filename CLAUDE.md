@@ -115,8 +115,7 @@ Liverexectours/
 
 ## 3. Open items / next actions
 
-- [ ] **Upload to BigWetFish** via `website-upload-guide.md` to make the site live on `liverexectours.com` — nothing from 2026-08-25/26 (hero rebuild, visual editor, new palette, About rewrite, FAQ/Contact/footer wording) is on the live site yet. It's all local-only so far.
-- [ ] **Commit and push this session's work** — everything from 2026-08-25/26 is still sitting as uncommitted changes in the working tree. Joe hasn't said yet whether to commit/push (asked once, no answer) — check before doing it, per the "only commit when explicitly asked" rule.
+- [ ] **Upload to BigWetFish** via `website-upload-guide.md` to make the site live on `liverexectours.com` — the 2026-08-25/26 work (hero rebuild, visual editor, new palette, About rewrite, FAQ/Contact/footer wording) is pushed to GitHub (commits `764aecf`/`014d680`, live on the Pages preview) but **not** on the real production site yet — that still needs a manual BigWetFish upload.
 - [ ] **Fill in Supabase keys** — `SUPABASE_URL` + `SUPABASE_ANON_KEY` in `index.html` to make the contact form write to the database instead of falling back to mailto.
 - [ ] **Lexus SUV photo** — none exists; placeholder card is live. Swap in a real photo once available.
 - [ ] **Google Business Profile** — postcard verification submitted ~2026-07-26; check if the code arrived. Also still shows the old `Liverexectours@gmail.com` (not updated when the site switched to `info@liverexectours.com`) and doesn't reflect the About section's UK-wide/London language — worth a look for consistency once the core verification is sorted.
