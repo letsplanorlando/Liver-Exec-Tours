@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Playfair+Display+SC:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/booking.css">
 </head>
 <body>
 
@@ -22,6 +23,7 @@
     <ul class="nav-links">
       <li><a href="#top">Home</a></li>
       <li><a href="#fleet">Fleet</a></li>
+      <li><a href="#book">Book Now</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-cta">
@@ -156,6 +158,287 @@
   </div>
 </section>
 
+<!-- ===================== BOOK ===================== -->
+<section id="book" class="section">
+  <div class="container">
+    <span class="eyebrow">Book a Journey</span>
+    <h2>Plan your journey in four steps</h2>
+    <p class="section-intro">Tell us your journey, pick a vehicle, and send your details straight to us — we confirm pricing and availability by phone or email. No card details needed to request a booking.</p>
+
+    <div class="wizard-stepper" data-stepper>
+      <div class="wizard-step-item is-current" data-step-item="1">
+        <span class="wizard-step-circle">1</span>
+        <span class="wizard-step-label">Journey</span>
+      </div>
+      <div class="wizard-step-connector"></div>
+      <div class="wizard-step-item" data-step-item="2">
+        <span class="wizard-step-circle">2</span>
+        <span class="wizard-step-label">Vehicle</span>
+      </div>
+      <div class="wizard-step-connector"></div>
+      <div class="wizard-step-item" data-step-item="3">
+        <span class="wizard-step-circle">3</span>
+        <span class="wizard-step-label">Passenger</span>
+      </div>
+      <div class="wizard-step-connector"></div>
+      <div class="wizard-step-item" data-step-item="4">
+        <span class="wizard-step-circle">4</span>
+        <span class="wizard-step-label">Confirm</span>
+      </div>
+    </div>
+
+    <div class="wizard-layout">
+      <div class="wizard-main">
+
+        <!-- STEP 1: JOURNEY -->
+        <div class="wizard-panel" data-step="1">
+          <h3 class="wizard-panel-title">Journey details</h3>
+
+          <div class="trip-type-tabs">
+            <button type="button" class="trip-tab is-active" data-trip-tab="oneway">One-way</button>
+            <button type="button" class="trip-tab" data-trip-tab="airport">Airport Transfer</button>
+            <button type="button" class="trip-tab" data-trip-tab="hourly">Hourly / As Directed</button>
+          </div>
+
+          <div class="trip-panel" data-trip-panel="oneway">
+            <div class="field-group">
+              <label for="bk-pickup">Pickup address</label>
+              <div class="address-input" data-address-role="pickup">
+                <input type="text" id="bk-pickup" placeholder="Address, hotel, postcode..." data-plain-input>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="bk-dropoff">Drop-off address</label>
+              <div class="address-input" data-address-role="dropoff">
+                <input type="text" id="bk-dropoff" placeholder="Address, hotel, postcode..." data-plain-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="trip-panel" data-trip-panel="airport" hidden>
+            <div class="field-group">
+              <span class="field-label-static">Flight type</span>
+              <div class="radio-row">
+                <label><input type="radio" name="flight-direction" value="departure" checked> Departure &mdash; we take you to the airport</label>
+                <label><input type="radio" name="flight-direction" value="arrival"> Arrival &mdash; we collect you from the airport</label>
+                <label><input type="radio" name="flight-direction" value="return"> Both &mdash; we take you there and collect you on return</label>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="bk-airport">Airport</label>
+              <select id="bk-airport">
+                <option value="">Select an airport</option>
+                <optgroup label="Commercial">
+                  <option>Liverpool John Lennon (LPL)</option>
+                  <option>Manchester Airport (MAN) &mdash; Terminal 1</option>
+                  <option>Manchester Airport (MAN) &mdash; Terminal 2</option>
+                  <option>Manchester Airport (MAN) &mdash; Terminal 3</option>
+                  <option>Leeds Bradford (LBA)</option>
+                  <option>London Heathrow (LHR)</option>
+                </optgroup>
+                <optgroup label="Private aviation">
+                  <option>Liverpool &mdash; Ravenair / Liverpool Aviation Services</option>
+                  <option>Manchester &mdash; Signature Flight Support</option>
+                </optgroup>
+                <option>Other UK airport</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="bk-airport-address">Home / office / hotel address</label>
+              <div class="address-input" data-address-role="airportAddress">
+                <input type="text" id="bk-airport-address" placeholder="Address, hotel, postcode..." data-plain-input>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="bk-flight-number" data-flight-number-label>Flight number <span class="muted">(optional)</span></label>
+              <input type="text" id="bk-flight-number" placeholder="e.g. FR123">
+            </div>
+
+            <div class="return-fields" data-return-fields hidden>
+              <p class="return-fields-heading">Return journey</p>
+              <div class="field-row">
+                <div class="field-group">
+                  <label for="bk-return-date">Return date</label>
+                  <input type="date" id="bk-return-date">
+                </div>
+                <div class="field-group">
+                  <label for="bk-return-time">Return pickup time</label>
+                  <input type="time" id="bk-return-time">
+                </div>
+              </div>
+              <div class="field-group">
+                <label for="bk-return-flight-number">Return flight number <span class="muted">(optional)</span></label>
+                <input type="text" id="bk-return-flight-number" placeholder="e.g. FR456">
+              </div>
+            </div>
+          </div>
+
+          <div class="trip-panel" data-trip-panel="hourly" hidden>
+            <div class="field-group">
+              <label for="bk-hourly-pickup">Pickup address</label>
+              <div class="address-input" data-address-role="hourlyPickup">
+                <input type="text" id="bk-hourly-pickup" placeholder="Address, hotel, postcode..." data-plain-input>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="bk-duration">Approximate duration</label>
+              <select id="bk-duration">
+                <option value="">Select duration</option>
+                <option>2 hours</option>
+                <option>3 hours</option>
+                <option>4 hours</option>
+                <option>Half day (up to 5 hours)</option>
+                <option>Full day (up to 10 hours)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label for="bk-date" data-date-label>Date</label>
+              <input type="date" id="bk-date">
+            </div>
+            <div class="field-group">
+              <label for="bk-time" data-time-label>Pickup time</label>
+              <input type="time" id="bk-time">
+            </div>
+          </div>
+
+          <p class="field-error" data-step-error hidden></p>
+
+          <div class="wizard-actions">
+            <span></span>
+            <button type="button" class="btn btn-primary" data-next="2">Next: Choose vehicle &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: VEHICLE -->
+        <div class="wizard-panel" data-step="2" hidden>
+          <h3 class="wizard-panel-title">Choose your vehicle</h3>
+
+          <div class="vehicle-grid">
+            <button type="button" class="vehicle-card" data-vehicle="vito">
+              <div class="fleet-photo">
+                <img src="images/fleet-vito.jpg" alt="Liver Exec Tours Mercedes Vito">
+              </div>
+              <h3>Mercedes Vito <span class="muted">(2018)</span></h3>
+              <p>Comfortable executive travel for small groups.</p>
+              <ul class="fleet-specs">
+                <li><strong>7</strong> seats</li>
+                <li>Corporate &amp; airport</li>
+              </ul>
+            </button>
+            <button type="button" class="vehicle-card" data-vehicle="lexus">
+              <div class="fleet-photo fleet-photo-placeholder">
+                <span class="ph-label">Photo coming soon</span>
+                <span class="ph-sub">Lexus SUV</span>
+              </div>
+              <h3>Lexus SUV</h3>
+              <p>Our luxury tier for VIP and executive clients.</p>
+              <ul class="fleet-specs">
+                <li><strong>3</strong> seats</li>
+                <li>Premium &amp; discreet</li>
+              </ul>
+            </button>
+            <button type="button" class="vehicle-card" data-vehicle="sprinter">
+              <div class="fleet-photo">
+                <img src="images/fleet-sprinter.jpg" alt="Liver Exec Tours Mercedes Sprinter minibus">
+              </div>
+              <h3>Mercedes Sprinter</h3>
+              <p>Full-group transport for events and match days.</p>
+              <ul class="fleet-specs">
+                <li><strong>16</strong> seats</li>
+                <li>Groups &amp; events</li>
+              </ul>
+            </button>
+          </div>
+
+          <p class="vehicle-note">We'll confirm exact pricing and availability when we get back to you &mdash; no payment needed to request a booking.</p>
+          <p class="field-error" data-step-error hidden></p>
+
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-outline" data-prev="1">&larr; Back</button>
+            <button type="button" class="btn btn-primary" data-next="3">Next: Your details &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: PASSENGER -->
+        <div class="wizard-panel" data-step="3" hidden>
+          <h3 class="wizard-panel-title">Passenger details</h3>
+
+          <div class="field-group">
+            <label for="bk-name">Name</label>
+            <input type="text" id="bk-name">
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label for="bk-phone">Phone</label>
+              <input type="tel" id="bk-phone">
+            </div>
+            <div class="field-group">
+              <label for="bk-email">Email</label>
+              <input type="email" id="bk-email">
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="bk-passengers">Number of passengers</label>
+            <input type="number" id="bk-passengers" min="1" value="1">
+          </div>
+          <div class="field-group">
+            <label for="bk-notes">Notes <span class="muted">(optional)</span></label>
+            <textarea id="bk-notes" placeholder="Meet & greet, extra luggage, child seat, etc."></textarea>
+          </div>
+
+          <p class="field-error" data-step-error hidden></p>
+
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-outline" data-prev="2">&larr; Back</button>
+            <button type="button" class="btn btn-primary" data-next="4">Next: Review &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: CONFIRM -->
+        <div class="wizard-panel" data-step="4" hidden>
+          <h3 class="wizard-panel-title">Review &amp; send</h3>
+
+          <dl class="booking-summary" data-summary></dl>
+
+          <div class="wizard-actions wizard-actions-confirm">
+            <button type="button" class="btn btn-outline" data-prev="3">&larr; Back</button>
+            <div class="confirm-send-buttons">
+              <button type="button" class="btn btn-primary" data-submit="whatsapp">Send via WhatsApp</button>
+              <button type="button" class="btn btn-outline" data-submit="email">Send via Email</button>
+            </div>
+          </div>
+          <p class="wizard-confirm-note">Not a live quote &mdash; this sends your request straight to us and we usually reply within 2&ndash;3 hours.</p>
+        </div>
+
+      </div>
+
+      <aside class="wizard-side">
+        <div class="route-panel">
+          <h3>Route preview</h3>
+          <div class="route-map" data-route-map>
+            <div class="route-map-placeholder" data-route-placeholder>
+              <span class="route-map-icon" aria-hidden="true">&#128506;</span>
+              <p>Live map preview appears here once a Google Maps API key is added.</p>
+            </div>
+          </div>
+          <div class="route-stats" data-route-stats hidden>
+            <div><strong data-route-distance>&mdash;</strong><span>miles</span></div>
+            <div><strong data-route-duration>&mdash;</strong><span>approx. drive time</span></div>
+          </div>
+        </div>
+        <div class="side-help-card">
+          <h4>Prefer to just call?</h4>
+          <p><a href="tel:+447808299060">07808 299060</a></p>
+          <p class="muted">Happy to take booking details over the phone too.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== FAQ ===================== -->
 <section id="faq" class="faq-section">
   <div class="faq-bg-img" aria-hidden="true"></div>
@@ -270,6 +553,7 @@
         <ul>
           <li><a href="#top">Home</a></li>
           <li><a href="#fleet">Fleet</a></li>
+          <li><a href="#book">Book Now</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -300,5 +584,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/edit-mode.js"></script>
+<script>
+  // Add a Google Maps Platform API key (Places API + Maps JavaScript API +
+  // Directions API enabled on it) to switch on live address autocomplete and
+  // the route preview panel in the "Book a Journey" section. Leave this
+  // blank and the section still works end to end — address fields are just
+  // plain text, and the panel explains what's missing instead of a map.
+  window.GOOGLE_MAPS_API_KEY = "AIzaSyAjnq06eiXMUTLeWrpWZ5s4MYD_nFmG6zo";
+</script>
+<script src="js/booking.js"></script>
 </body>
 </html>

@@ -1,0 +1,314 @@
+/* Liver Exec Tours — booking wizard (homepage "Book a Journey" section) */
+
+/* Elements below set their own `display` (flex/grid) for their visible
+   state, which otherwise beats the browser's default `[hidden]{display:none}`
+   rule at equal specificity — same trap documented in style.css for the
+   mobile hero photo. Force it explicitly so toggling `.hidden = true` from
+   JS always actually hides these. */
+[hidden] { display: none !important; }
+
+/* ---------- stepper ---------- */
+.wizard-stepper {
+  display: flex;
+  align-items: flex-start;
+  max-width: 640px;
+  margin: 48px auto;
+}
+.wizard-step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+.wizard-step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--grey-light);
+  color: var(--grey-light);
+  background: var(--ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.wizard-step-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--grey);
+  white-space: nowrap;
+}
+.wizard-step-item.is-current .wizard-step-circle {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+.wizard-step-item.is-current .wizard-step-label { color: var(--navy); font-weight: 700; }
+.wizard-step-item.is-done .wizard-step-circle {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--navy);
+}
+.wizard-step-connector {
+  flex: 1 1 auto;
+  height: 2px;
+  background: var(--border);
+  margin-top: 18px;
+  transition: background 0.25s ease;
+}
+.wizard-step-connector.is-done { background: var(--brass); }
+
+/* ---------- layout ---------- */
+.wizard-layout {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.wizard-main {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.25);
+}
+.wizard-panel-title { font-size: 1.6rem; margin-bottom: 24px; }
+
+/* ---------- trip type tabs ---------- */
+.trip-type-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1.5px solid var(--border);
+  margin-bottom: 28px;
+}
+.trip-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  padding: 10px 16px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--grey);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.trip-tab:hover { color: var(--navy); }
+.trip-tab.is-active { color: var(--navy); border-bottom-color: var(--brass); }
+
+/* ---------- fields ---------- */
+.field-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 6px; }
+.field-group label,
+.field-label-static {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+.field-group input:not([type="radio"]):not([type="checkbox"]),
+.field-group select,
+.field-group textarea,
+.address-input input {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  color: var(--ink);
+  width: 100%;
+}
+.field-group input:not([type="radio"]):not([type="checkbox"]):focus,
+.field-group select:focus,
+.field-group textarea:focus,
+.address-input input:focus {
+  outline: none;
+  border-color: var(--brass);
+}
+.field-group textarea { min-height: 90px; resize: vertical; }
+.address-input { display: block; width: 100%; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.return-fields {
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+.return-fields-heading {
+  margin: 0 0 16px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.radio-row { display: flex; flex-direction: column; gap: 10px; }
+.radio-row label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink);
+}
+.radio-row input { margin-top: 3px; flex-shrink: 0; }
+
+.field-error {
+  color: #B8452F;
+  font-size: 0.85rem;
+  margin: -8px 0 16px;
+}
+
+/* ---------- actions ---------- */
+.wizard-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.confirm-send-buttons { display: flex; gap: 12px; }
+.wizard-confirm-note {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+  color: var(--grey);
+  text-align: center;
+}
+
+/* ---------- vehicle step ---------- */
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.vehicle-card {
+  text-align: left;
+  font-family: inherit;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.vehicle-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.35); }
+.vehicle-card.is-selected { border-color: var(--brass); }
+.vehicle-card.is-selected::after {
+  content: "\2713";
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brass);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.vehicle-card .fleet-photo { margin-bottom: 16px; }
+.vehicle-note { color: var(--grey); font-size: 0.9rem; margin: 4px 0 20px; }
+
+/* ---------- confirm summary ---------- */
+.booking-summary { margin: 0; }
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.92rem;
+}
+.summary-row:first-child { padding-top: 0; }
+.summary-row dt { color: var(--navy); font-weight: 600; flex: 0 0 auto; }
+.summary-row dd { margin: 0; color: var(--grey); text-align: right; }
+
+/* ---------- side panel ---------- */
+.wizard-side { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; }
+.route-panel {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.25);
+}
+.route-panel h3 { margin-bottom: 16px; }
+.route-map {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ivory-dark);
+  height: 260px;
+}
+.route-map-canvas { width: 100%; height: 100%; }
+.route-map-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  padding: 24px;
+  color: var(--grey);
+}
+.route-map-icon { font-size: 2rem; }
+.route-map-placeholder p { margin: 0; font-size: 0.85rem; }
+.route-stats {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.route-stats > div { flex: 1; text-align: center; }
+.route-stats strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--navy);
+}
+.route-stats span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--grey);
+}
+.side-help-card {
+  background: var(--ivory-dark);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+}
+.side-help-card h4 { margin-bottom: 6px; }
+.side-help-card p { margin: 0 0 4px; }
+.side-help-card a { font-weight: 700; color: var(--navy); font-size: 1.1rem; }
+.side-help-card a:hover { color: var(--brass); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .wizard-layout { grid-template-columns: 1fr; }
+  .wizard-side { position: static; }
+  .vehicle-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 620px) {
+  .wizard-main { padding: 22px 18px; }
+  .field-row { grid-template-columns: 1fr; }
+  .vehicle-grid { grid-template-columns: 1fr; }
+  .wizard-step-label { display: none; }
+  .wizard-stepper { padding: 0 12px; }
+  .wizard-actions { flex-wrap: wrap; gap: 14px; }
+  .wizard-actions-confirm { flex-direction: column; align-items: stretch; }
+  .confirm-send-buttons { flex-direction: column; }
+  .trip-tab { padding: 10px 10px; font-size: 0.82rem; }
+}
