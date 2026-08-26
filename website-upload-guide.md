@@ -15,7 +15,7 @@ If File Manager doesn't accept a folder upload directly, zip the contents of `li
 
 ## 2. What changed in this redesign
 
-- New colour palette (warm ivory/stone with deep navy and a brass accent) and new typefaces (Fraunces for headings, Work Sans for body text) — a different visual direction from the old dark charcoal/gold version.
+- Colour palette: gunmetal/porcelain/champagne as of 2026-08-26 (previously ivory/navy/brass, and before that dark charcoal/gold) — typefaces are Fraunces for headings, Work Sans for body text, Playfair Display SC for the hero/nav wordmark.
 - Real photos now used throughout instead of placeholders: the Vito and Sprinter both have dedicated shots taken outside the Royal Liver Building, and the hero banner uses a shot with the actual Liver Building clock tower.
 - The **Lexus SUV** still has no photo — it shows a styled "Photo coming soon" card rather than a broken image. Same for adding one later:
   1. Take/select a photo (landscape orientation works best, roughly 1400×1050px, under 400KB for fast loading).
@@ -42,6 +42,6 @@ If File Manager doesn't accept a folder upload directly, zip the contents of `li
 ## 3. A couple of things worth knowing
 
 - **The contact form** submits into a Supabase database when `SUPABASE_URL` / `SUPABASE_ANON_KEY` are filled in near the bottom of `index.html` (currently blank) — until then it falls back to opening the visitor's email app with the message pre-filled. Ask if you want help getting the Supabase keys wired in.
-- **The phone number and email** throughout the site come from what's on the Google Business Profile (07540 838531 / Liverexectours@gmail.com). If either changes, it's all in the one `index.html` file (search-and-replace, or ask me to update it).
+- **The phone number and email** are `07808 299060` / `info@liverexectours.com` (that inbox forwards to `liverexectours@gmail.com`, which is what's actually checked). They appear across `index.html` (5+ instances) and in `js/main.js` (the WhatsApp number and the hero enquiry bar's email address) — ask me to update it if either changes again. Note the Google Business Profile listing may still show the old `Liverexectours@gmail.com` — it wasn't updated as part of this change.
 - **Nothing on this site names Carlsberg or Boodles** — it uses the "trusted by leading Liverpool corporates and retail brands" line, consistent with the Business Profile and the open decision on client-showcase approach.
 - This folder (not the Claude Project) is now the source of truth for the website — see `CLAUDE.md` in the folder root for full status.
