@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'Service needed: ' + service + '\n\n' +
         'Message:\n' + message
       );
-      window.location.href = 'mailto:Liverexectours@gmail.com?subject=' + subject + '&body=' + body;
+      window.location.href = 'mailto:info@liverexectours.com?subject=' + subject + '&body=' + body;
     }
 
     function setStatus(text, kind) {
@@ -89,11 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Progressively enhanced: if the browser lacks IntersectionObserver, or
   // the visitor has requested reduced motion, the hero simply stays as a
   // normal single-viewport section showing the poster/first frame — see
-  // the base (non `.scrub-active`) styles in css/style.css.
+  // the base (non `.is-scrubbing`) styles in css/style.css.
   (function initHeroScrub() {
-    var section = document.querySelector('[data-hero-scrub]');
+    var section = document.querySelector('[data-hero]');
     if (!section) return;
-    var video = section.querySelector('.hero-scrub-video');
+    var video = section.querySelector('.hero-video');
     if (!video) return;
 
     var reduceMotion = window.matchMedia &&
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
       duration = video.duration;
       if (duration && isFinite(duration) && duration > 0) {
         ready = true;
-        section.classList.add('scrub-active');
+        section.classList.add('is-scrubbing');
         requestTick();
       }
     }
@@ -157,60 +157,65 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', requestTick);
   })();
 
-  // ---- Cinematic hero title fade-in + header reveal on scroll -------
-  (function initCinematicFadeAndHeader() {
-    var cinematicHero = document.querySelector('.hero-scrub-cinematic');
-    if (!cinematicHero) return;
+  // ---- Hero content reveal --------------------------------------------
+  // Desktop: title block + enquiry box fade in together once the video
+  // has settled. Mobile: photo, then title ("LET"), then the enquiry box
+  // fade in one at a time, so nothing appears all at once.
+  (function initHeroReveal() {
+    var hero = document.querySelector('[data-hero]');
+    if (!hero) return;
 
-    // On mobile the photo fades in over 1.5s — text starts at 80% through (1200ms).
-    // On desktop, text fades in after a short settle delay.
-    var fadeDelay = window.innerWidth <= 720 ? 1200 : 900;
-    window.requestAnimationFrame(function () {
+    var photo = hero.querySelector('.hero-photo-mobile');
+    var titleBlock = hero.querySelector('.hero-title-block');
+    var enquiryBlock = hero.querySelector('.hero-enquiry-block');
+
+    function reveal(el) {
+      if (el) el.classList.add('is-visible');
+    }
+
+    if (window.innerWidth <= 720) {
+      setTimeout(function () { reveal(photo); }, 200);
+      setTimeout(function () { reveal(titleBlock); }, 1100);
+      setTimeout(function () { reveal(enquiryBlock); }, 1900);
+    } else {
       setTimeout(function () {
-        cinematicHero.classList.add('fade-in');
-      }, fadeDelay);
-    });
+        reveal(titleBlock);
+        reveal(enquiryBlock);
+      }, 900);
+    }
+  })();
 
-    // Reveal the header once the visitor has scrolled past the hero,
-    // hide it again if they scroll back up into it. Uses the same
-    // rect-based progress math as the video scrub above, so the header
-    // appears at the exact moment the pinned hero releases — not some
-    // arbitrary distance later — and it works whether or not the pin
-    // ever activates (e.g. reduced-motion / no-video fallback), where
-    // it just falls back to a plain "scrolled past this section" check.
+  // ---- Header reveal on scroll ----------------------------------------
+  // Shows the fixed header once the visitor has scrolled past the hero,
+  // hides it again if they scroll back up into it. Uses the same
+  // rect-based progress as the video scrub, so it appears at the exact
+  // moment the pinned hero releases — and falls back to a plain
+  // "scrolled past this section" check when the pin never activates
+  // (reduced-motion / no-video fallback).
+  (function initHeaderReveal() {
+    var hero = document.querySelector('[data-hero]');
     var header = document.querySelector('.site-header');
-    if (!header) return;
+    if (!hero || !header) return;
 
-    var headerTicking = false;
-    function updateHeader() {
-      headerTicking = false;
-      var rect = cinematicHero.getBoundingClientRect();
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var rect = hero.getBoundingClientRect();
       var runway = rect.height - window.innerHeight;
       var pastHero = runway > 0
         ? (0 - rect.top) / runway >= 0.99
         : rect.bottom <= 0;
       header.classList.toggle('header-visible', pastHero);
     }
-    function requestHeaderTick() {
-      if (!headerTicking) {
-        headerTicking = true;
-        requestAnimationFrame(updateHeader);
+    function requestTick() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
       }
     }
-    window.addEventListener('scroll', requestHeaderTick, { passive: true });
-    window.addEventListener('resize', requestHeaderTick);
-    requestHeaderTick();
-  })();
-
-  // ---- Mobile hero fade-in ------------------------------------------
-  // CSS animations can be unreliable on mobile — trigger via JS instead.
-  (function initMobileHeroReveal() {
-    if (window.innerWidth > 720) return;
-    var img = document.querySelector('.hero-mobile-img');
-    if (!img) return;
-    setTimeout(function () {
-      img.style.opacity = '1';
-    }, 200);
+    window.addEventListener('scroll', requestTick, { passive: true });
+    window.addEventListener('resize', requestTick);
+    requestTick();
   })();
 
   // ---- FAQ accordion ------------------------------------------------
@@ -238,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!bar) return;
 
     var WHATSAPP_NUMBER = '447808299060';
-    var EMAIL_ADDRESS = 'Liverexectours@gmail.com';
+    var EMAIL_ADDRESS = 'info@liverexectours.com';
 
     function fieldVal(id) {
       var el = document.getElementById(id);

@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liver Exec Tours — Palette 03: Gunmetal & Champagne</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gunmetal:   #2A2A2A;
+    --ash:        #4A4A4A;
+    --smoke:      #6E6E6E;
+    --champagne:  #D4C5A9;
+    --silver:     #B8C0CC;
+    --porcelain:  #F5F5F5;
+    --white:      #FFFFFF;
+    --accent:     #D4C5A9;
+  }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: #F5F5F5;
+    color: #2A2A2A;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: #2A2A2A;
+    padding: 56px 48px 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  .page-header h1 {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    color: #6E6E6E;
+    margin-bottom: 10px;
+  }
+
+  .page-header p {
+    font-size: 28px;
+    font-weight: 400;
+    color: #F5F5F5;
+    letter-spacing: -0.01em;
+  }
+
+  .page-header .tagline {
+    font-size: 12px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    color: #6E6E6E;
+    letter-spacing: 0.05em;
+    text-align: right;
+    max-width: 260px;
+    line-height: 1.6;
+  }
+
+  .section {
+    padding: 56px 48px;
+    border-bottom: 1px solid #E0E0E0;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    color: #9E9E9E;
+    margin-bottom: 32px;
+  }
+
+  /* ── SWATCHES ── */
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+
+  .swatch-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .swatch-block {
+    height: 100px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+
+  .swatch-name {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    color: #2A2A2A;
+    margin-bottom: 3px;
+  }
+
+  .swatch-hex {
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    color: #9E9E9E;
+  }
+
+  .swatch-role {
+    font-size: 10.5px;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #ABABAB;
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+
+  /* ── USAGE RULES ── */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .usage-card {
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .usage-preview {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    gap: 10px;
+  }
+
+  .usage-label {
+    padding: 12px 16px;
+    font-size: 11px;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #9E9E9E;
+    background: #FAFAFA;
+    border-top: 1px solid #E8E8E8;
+    line-height: 1.5;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .type-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .type-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #EBEBEB;
+  }
+
+  .type-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .type-meta {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #ABABAB;
+    line-height: 1.6;
+  }
+
+  .type-sample { color: #2A2A2A; }
+
+  .t-display {
+    font-size: 42px;
+    font-family: 'Georgia', serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .t-heading {
+    font-size: 26px;
+    font-family: 'Georgia', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .t-subheading {
+    font-size: 13px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6E6E6E;
+  }
+
+  .t-body {
+    font-size: 15px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #4A4A4A;
+    max-width: 520px;
+  }
+
+  .t-caption {
+    font-size: 11px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9E9E9E;
+  }
+
+  /* ── UI COMPONENTS ── */
+  .components-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .component-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .component-group-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #ABABAB;
+    margin-bottom: 4px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 24px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+  }
+
+  .btn-primary { background: #2A2A2A; color: #F5F5F5; }
+  .btn-champagne { background: #D4C5A9; color: #2A2A2A; }
+  .btn-outline { background: transparent; color: #2A2A2A; border: 1px solid #2A2A2A; }
+  .btn-ghost { background: transparent; color: #F5F5F5; border: 1px solid rgba(255,255,255,0.3); }
+
+  /* Nav */
+  .nav-demo {
+    background: #2A2A2A;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 3px;
+  }
+
+  .nav-demo .logo {
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    color: #F5F5F5;
+  }
+
+  .nav-demo .nav-links {
+    display: flex;
+    gap: 28px;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9E9E9E;
+  }
+
+  .nav-demo .nav-cta {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #D4C5A9;
+    border: 1px solid #D4C5A9;
+    padding: 6px 14px;
+    border-radius: 2px;
+  }
+
+  /* Card */
+  .card-demo {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .card-img {
+    height: 80px;
+    background: linear-gradient(135deg, #4A4A4A 0%, #2A2A2A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-img span {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #6E6E6E;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .card-body .card-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #D4C5A9;
+    margin-bottom: 6px;
+  }
+
+  .card-body .card-title {
+    font-family: 'Georgia', serif;
+    font-size: 15px;
+    color: #2A2A2A;
+    margin-bottom: 6px;
+  }
+
+  .card-body .card-text {
+    font-size: 11.5px;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #9E9E9E;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* Enquiry bar */
+  .enquiry-bar {
+    background: #2A2A2A;
+    border-radius: 3px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .enquiry-field {
+    flex: 1;
+    background: #3A3A3A;
+    border: 1px solid #4A4A4A;
+    border-radius: 2px;
+    padding: 10px 12px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #9E9E9E;
+  }
+
+  .enquiry-btn {
+    background: #D4C5A9;
+    color: #2A2A2A;
+    border: none;
+    border-radius: 2px;
+    padding: 11px 18px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ── HERO MOCKUP ── */
+  .hero-mockup {
+    background: #1E1E1E;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-inner {
+    padding: 56px 48px 48px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #D4C5A9;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: #D4C5A9;
+  }
+
+  .hero-title {
+    font-family: 'Georgia', serif;
+    font-size: 44px;
+    font-weight: 400;
+    color: #F5F5F5;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin-bottom: 20px;
+    max-width: 400px;
+  }
+
+  .hero-sub {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: #9E9E9E;
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+    max-width: 340px;
+    margin-bottom: 32px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .hero-btn-solid {
+    background: #D4C5A9;
+    color: #2A2A2A;
+    padding: 13px 28px;
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+  }
+
+  .hero-btn-ghost {
+    background: transparent;
+    color: #F5F5F5;
+    padding: 13px 28px;
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+  }
+
+  .hero-img-strip {
+    height: 160px;
+    background: linear-gradient(to right, #2A2A2A 0%, #1E1E1E 30%, #3A3A3A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #333;
+  }
+
+  .hero-img-strip span {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #555;
+  }
+
+  @media (max-width: 760px) {
+    .section { padding: 40px 20px; }
+    .page-header { padding: 40px 20px; flex-direction: column; align-items: flex-start; }
+    .swatch-grid { grid-template-columns: repeat(3, 1fr); }
+    .usage-grid { grid-template-columns: 1fr; }
+    .components-grid { grid-template-columns: 1fr; }
+    .type-row { grid-template-columns: 1fr; gap: 8px; }
+    .t-display { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div>
+    <h1>Liver Exec Tours — Brand System</h1>
+    <p>Option 03: Gunmetal & Champagne</p>
+  </div>
+  <div class="tagline">Pulled from the Vito's bodywork and the Cunard Building stone. Neutral, premium, timeless.</div>
+</div>
+
+<!-- COLOUR TOKENS -->
+<div class="section">
+  <div class="section-label">Colour Tokens</div>
+  <div class="swatch-grid">
+
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:#2A2A2A; border: 1px solid #E0E0E0;"></div>
+      <div class="swatch-name">Gunmetal</div>
+      <div class="swatch-hex">#2A2A2A</div>
+      <div class="swatch-role">Primary bg, nav, footer</div>
+    </div>
+
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:#4A4A4A;"></div>
+      <div class="swatch-name">Ash</div>
+      <div class="swatch-hex">#4A4A4A</div>
+      <div class="swatch-role">Body text on light</div>
+    </div>
+
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:#6E6E6E;"></div>
+      <div class="swatch-name">Smoke</div>
+      <div class="swatch-hex">#6E6E6E</div>
+      <div class="swatch-role">Secondary text, captions</div>
+    </div>
+
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:#D4C5A9; border: 1px solid #E0E0E0;"></div>
+      <div class="swatch-name">Champagne</div>
+      <div class="swatch-hex">#D4C5A9</div>
+      <div class="swatch-role">Primary accent, CTAs, highlights</div>
+    </div>
+
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:#B8C0CC;"></div>
+      <div class="swatch-name">Silver</div>
+      <div class="swatch-hex">#B8C0CC</div>
+      <div class="swatch-role">Secondary accent, dividers</div>
+    </div>
+
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:#F5F5F5; border: 1px solid #E0E0E0;"></div>
+      <div class="swatch-name">Porcelain</div>
+      <div class="swatch-hex">#F5F5F5</div>
+      <div class="swatch-role">Page background, cards</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- USAGE RULES -->
+<div class="section">
+  <div class="section-label">Colour Usage</div>
+  <div class="usage-grid">
+
+    <div class="usage-card">
+      <div class="usage-preview" style="background:#2A2A2A; color:#F5F5F5;">
+        Dark bg · Light text · Champagne accent
+      </div>
+      <div class="usage-label">Hero, nav, footer, dark sections. White or porcelain body copy, champagne for links and accents.</div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-preview" style="background:#F5F5F5; color:#2A2A2A;">
+        Light bg · Gunmetal text · Champagne CTA
+      </div>
+      <div class="usage-label">Fleet cards, contact section, body content. Ash (#4A4A4A) for paragraph text.</div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-preview" style="background:#D4C5A9; color:#2A2A2A;">
+        Champagne bg · Gunmetal text
+      </div>
+      <div class="usage-label">Primary button fill only. Not for large background areas — it reads warm but not too light.</div>
+    </div>
+
+    <div class="usage-card">
+      <div class="usage-preview" style="background:#F5F5F5; color:#2A2A2A;">
+        <span style="color:#B8C0CC; font-size:22px; margin-right:4px;">—</span> Silver as a structural element
+      </div>
+      <div class="usage-label">Divider lines, subtle borders, secondary labels. Not a background colour.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="section">
+  <div class="section-label">Typography</div>
+  <div class="type-showcase">
+
+    <div class="type-row">
+      <div class="type-meta">Display<br>Georgia / Serif<br>42px / –0.02em</div>
+      <div class="type-sample t-display">Executive Transport<br>Across Merseyside</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Heading<br>Georgia / Serif<br>26px / –0.01em</div>
+      <div class="type-sample t-heading">Our Fleet</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Subheading<br>Helvetica Neue / Sans<br>13px / 0.18em / UC</div>
+      <div class="type-sample t-subheading">Mercedes Vito · 7 Passengers</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Body<br>Helvetica Neue / Sans<br>15px / 300wt / 1.7lh</div>
+      <div class="type-sample t-body">Professional chauffeur-driven transport across Liverpool, Merseyside, and Manchester. Available for corporate travel, airport transfers, and event transportation.</div>
+    </div>
+
+    <div class="type-row">
+      <div class="type-meta">Caption / Label<br>Helvetica Neue / Sans<br>11px / 0.1em / UC</div>
+      <div class="type-sample t-caption">Available 24 hours · Licensed & insured</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- UI COMPONENTS -->
+<div class="section">
+  <div class="section-label">UI Components</div>
+  <div class="components-grid">
+
+    <!-- Buttons -->
+    <div class="component-group">
+      <div class="component-group-label">Buttons</div>
+      <button class="btn btn-primary">Book Now</button>
+      <button class="btn btn-champagne">Get a Quote</button>
+      <button class="btn btn-outline">View Fleet</button>
+      <div style="background:#2A2A2A; padding:16px; border-radius:3px;">
+        <button class="btn btn-ghost">Call Us</button>
+      </div>
+    </div>
+
+    <!-- Nav + Card -->
+    <div class="component-group">
+      <div class="component-group-label">Navigation</div>
+      <div class="nav-demo">
+        <div class="logo">Liver Exec Tours</div>
+        <div class="nav-links">
+          <span>Fleet</span>
+          <span>Contact</span>
+        </div>
+        <div class="nav-cta">Book</div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="component-group-label">Fleet Card</div>
+        <div class="card-demo">
+          <div class="card-img"><span>Vehicle photo</span></div>
+          <div class="card-body">
+            <div class="card-eyebrow">Up to 7 passengers</div>
+            <div class="card-title">Mercedes Vito</div>
+            <div class="card-text">Executive people carrier. Ideal for corporate groups and airport transfers.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enquiry bar -->
+    <div class="component-group">
+      <div class="component-group-label">Enquiry Bar</div>
+      <div class="enquiry-bar">
+        <div class="enquiry-field">Pickup</div>
+        <div class="enquiry-field">Drop-off</div>
+        <div class="enquiry-field">Date</div>
+        <button class="enquiry-btn">Send →</button>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="component-group-label">Contact Detail</div>
+        <div style="background:#FFFFFF; border:1px solid #E8E8E8; border-radius:3px; padding:16px; display:flex; flex-direction:column; gap:10px;">
+          <div style="font-size:10px; letter-spacing:0.18em; text-transform:uppercase; font-family:'Helvetica Neue',sans-serif; color:#D4C5A9;">Phone</div>
+          <div style="font-family:'Georgia',serif; font-size:18px; color:#2A2A2A;">07540 838531</div>
+          <div style="font-size:11px; font-family:'Helvetica Neue',sans-serif; color:#9E9E9E; letter-spacing:0.06em;">Available for enquiries · Usually replies within 2–3 hrs</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HERO PREVIEW -->
+<div class="section" style="border-bottom:none;">
+  <div class="section-label">Hero Section Preview</div>
+  <div class="hero-mockup">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Liverpool · Merseyside · Manchester</div>
+      <div class="hero-title">Executive Transport, Done Properly</div>
+      <div class="hero-sub">Professional chauffeur-driven transport for corporate travel, airport transfers, and event days.</div>
+      <div class="hero-btns">
+        <div class="hero-btn-solid">Book Now</div>
+        <div class="hero-btn-ghost">Call Us</div>
+      </div>
+    </div>
+    <div class="hero-img-strip">
+      <span>Full-bleed vehicle photography here</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

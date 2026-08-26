@@ -32,10 +32,10 @@
   </div>
 </header>
 
-<section id="top" class="hero-scrub hero-scrub-cinematic" data-hero-scrub>
-  <div class="hero-scrub-pin">
+<section id="top" class="hero" data-hero>
+  <div class="hero-pin">
     <video
-      class="hero-scrub-video"
+      class="hero-video"
       muted
       playsinline
       preload="auto"
@@ -43,42 +43,51 @@
       aria-hidden="true">
       <source src="images/hero-scrub.mp4" type="video/mp4">
     </video>
-    <img class="hero-mobile-img" src="images/hero-mobile2.jpg" alt="" aria-hidden="true">
-    <div class="hero-scrub-overlay"></div>
-    <div class="hero-scrub-fade" data-hero-fade>
-      <div class="container hero-scrub-title-wrap">
-        <h1 class="hero-scrub-title">Liver Exec <span>Tours</span></h1>
-        <div class="btn-row hero-scrub-btns">
-          <a class="btn btn-primary" href="tel:+447808299060">Call</a>
-          <a class="btn btn-outline" href="#contact">Enquire</a>
+    <img class="hero-photo-mobile hero-reveal" src="images/hero-mobile2.jpg" alt="" aria-hidden="true">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="container hero-content-inner">
+        <div class="hero-title-block hero-reveal">
+          <h1 class="hero-title" aria-label="Liver Exec Tours">
+            <span class="hero-title-full">Liver Exec Tours</span>
+            <span class="hero-title-mark">LET</span>
+          </h1>
+          <div class="btn-row hero-buttons">
+            <a class="btn btn-primary" href="tel:+447808299060">Call</a>
+            <a class="btn btn-outline" href="#contact">Enquire</a>
+          </div>
         </div>
 
-        <form class="hero-enquiry-bar" id="hero-enquiry-bar">
-          <div class="hero-enquiry-field">
-            <label for="he-pickup">Pickup location</label>
-            <input type="text" id="he-pickup" name="pickup" placeholder="Address, airport, hotel...">
-          </div>
-          <div class="hero-enquiry-field">
-            <label for="he-dropoff">Drop-off location</label>
-            <input type="text" id="he-dropoff" name="dropoff" placeholder="Address, airport, hotel...">
-          </div>
-          <div class="hero-enquiry-field hero-enquiry-field-narrow">
-            <label for="he-date">Date</label>
-            <input type="date" id="he-date" name="date">
-          </div>
-          <div class="hero-enquiry-field hero-enquiry-field-narrow">
-            <label for="he-time">Pickup time</label>
-            <input type="time" id="he-time" name="time">
-          </div>
-          <div class="hero-enquiry-send">
-            <button type="button" class="btn btn-primary hero-enquiry-send-btn" data-send="whatsapp">Send via WhatsApp</button>
-            <button type="button" class="btn btn-outline hero-enquiry-send-btn" data-send="email">Send via Email</button>
-          </div>
-        </form>
-        <p class="hero-enquiry-note">Not a live quote &mdash; your details go straight to us and we usually reply within 2&ndash;3 hours.</p>
+        <div class="hero-enquiry-block hero-reveal">
+          <form class="hero-enquiry" id="hero-enquiry-bar">
+            <div class="hero-enquiry-field">
+              <label for="he-pickup">Pickup location</label>
+              <input type="text" id="he-pickup" name="pickup" placeholder="Address, airport, hotel...">
+            </div>
+            <div class="hero-enquiry-field">
+              <label for="he-dropoff">Drop-off location</label>
+              <input type="text" id="he-dropoff" name="dropoff" placeholder="Address, airport, hotel...">
+            </div>
+            <div class="hero-enquiry-field hero-enquiry-field-narrow">
+              <label for="he-date">Date</label>
+              <input type="date" id="he-date" name="date">
+            </div>
+            <div class="hero-enquiry-field hero-enquiry-field-narrow">
+              <label for="he-time">Pickup time</label>
+              <input type="time" id="he-time" name="time">
+            </div>
+            <div class="hero-enquiry-actions">
+              <button type="button" class="btn btn-primary hero-enquiry-send-btn" data-send="whatsapp">Send via WhatsApp</button>
+              <button type="button" class="btn btn-outline hero-enquiry-send-btn" data-send="email">Send via Email</button>
+            </div>
+          </form>
+          <p class="hero-enquiry-note">Not a live quote — your details go straight to us and we usually reply within 2–3 hours.</p>
+        </div>
       </div>
     </div>
-    <div class="hero-scrub-hint" aria-hidden="true"><span></span>Scroll</div>
+
+    <div class="hero-scroll-hint" aria-hidden="true"><span></span>Scroll</div>
   </div>
 </section>
 
@@ -88,8 +97,15 @@
     <span class="eyebrow">About Us</span>
     <h2>Liverpool's executive chauffeur service</h2>
     <div class="about-cols">
-      <p>Liver Exec Tours has been moving people around Merseyside for years — quietly, reliably, and without fuss. We're a family-run operation based in Liverpool, and we take pride in that. Every journey is handled personally, every vehicle is kept immaculate, and every client gets a driver who knows the city.</p>
-      <p>We work with corporate clients, event organisers, sports teams, and individuals who just want a vehicle they can trust. No call centres, no middlemen — you deal directly with us from the first enquiry to the drop-off.</p>
+      <div>
+        <p>With over 20 years of experience, we provide professional chauffeur and private transport services across Liverpool and the wider North West, with a reputation built on reliability, discretion and exceptional service.</p>
+        <p>Our clients have included leading Liverpool corporates and retail brands, as well as photography, film and production crews and major golf events when they visit the region.</p>
+      </div>
+      <div>
+        <p>From executive journeys and corporate travel to long-distance trips and airport transfers anywhere in the UK, we provide a dependable service tailored to your needs. We regularly cover journeys to London and destinations throughout the country.</p>
+        <p>Our fleet includes a 16-seater minibus, 7-seater Mercedes Vito and a luxury Lexus SUV for up to three guests, giving us the flexibility to accommodate everything from individual executive travel to larger groups and production teams.</p>
+        <p>Whether you need a chauffeur for business, an event, an airport transfer or a long-distance journey, you can rely on over two decades of experience to get you there comfortably, safely and professionally.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -99,7 +115,7 @@
   <div class="container">
     <span class="eyebrow">The Fleet</span>
     <h2>One call, the right vehicle</h2>
-    <p class="section-intro">Every vehicle is maintained to the same standard &mdash; the only question is how many seats your journey needs.</p>
+    <p class="section-intro">Every vehicle is maintained to the same standard — the only question is how many seats your journey needs.</p>
 
     <div class="grid grid-3 fleet-grid">
       <div class="card fleet-card">
@@ -110,7 +126,7 @@
         <p>Comfortable executive travel for small groups.</p>
         <ul class="fleet-specs">
           <li><strong>7</strong> seats</li>
-          <li>Corporate &amp; airport</li>
+          <li>Corporate & airport</li>
         </ul>
       </div>
       <div class="card fleet-card">
@@ -122,7 +138,7 @@
         <p>Our luxury tier for VIP and executive clients.</p>
         <ul class="fleet-specs">
           <li><strong>3</strong> seats</li>
-          <li>Premium &amp; discreet</li>
+          <li>Premium & discreet</li>
         </ul>
       </div>
       <div class="card fleet-card">
@@ -133,7 +149,7 @@
         <p>Full-group transport for events and match days.</p>
         <ul class="fleet-specs">
           <li><strong>16</strong> seats</li>
-          <li>Groups &amp; events</li>
+          <li>Groups & events</li>
         </ul>
       </div>
     </div>
@@ -150,19 +166,19 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">How do I get a quote? <span class="faq-icon" aria-hidden="true">+</span></button>
-        <div class="faq-a" hidden>Fill in the enquiry form or call us directly. We usually reply within 2&ndash;3 hours and will confirm availability and pricing for your journey.</div>
+        <div class="faq-a" hidden>Fill in the enquiry form or call us directly. We usually reply within 2–3 hours and will confirm availability and pricing for your journey.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Which airports do you cover? <span class="faq-icon" aria-hidden="true">+</span></button>
-        <div class="faq-a" hidden>We cover Liverpool John Lennon, Manchester, and Leeds Bradford. Long-distance transfers to other airports can be arranged &mdash; just ask.</div>
+        <div class="faq-a" hidden>We cover Liverpool John Lennon, Manchester, and Leeds Bradford as standard — and we regularly arrange transfers to airports and destinations right across the UK, including London.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">What&rsquo;s the maximum group size? <span class="faq-icon" aria-hidden="true">+</span></button>
+        <button class="faq-q" aria-expanded="false">What’s the maximum group size? <span class="faq-icon" aria-hidden="true">+</span></button>
         <div class="faq-a" hidden>The Sprinter takes up to 16 passengers, the Vito seats 7. For larger groups we can arrange multiple vehicles.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">What happens if my flight is delayed? <span class="faq-icon" aria-hidden="true">+</span></button>
-        <div class="faq-a" hidden>We monitor flight times and adjust your pickup accordingly at no extra charge. No need to call us &mdash; we&rsquo;ll already know.</div>
+        <div class="faq-a" hidden>We monitor flight times and adjust your pickup accordingly at no extra charge. No need to call us — we’ll already know.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Do you work with corporate clients? <span class="faq-icon" aria-hidden="true">+</span></button>
@@ -177,7 +193,7 @@
   <div class="container">
     <span class="eyebrow">Contact</span>
     <h2>Let's get your journey booked</h2>
-    <p class="section-intro">Call, email, or send the form below with your trip details &mdash; we usually reply the same day.</p>
+    <p class="section-intro">Call, email, or send the form below with your trip details — we usually reply the same day.</p>
 
     <div class="contact-grid">
       <div>
@@ -192,21 +208,21 @@
           <div class="icon">&#9993;</div>
           <div>
             <h3>Email</h3>
-            <p><a href="mailto:Liverexectours@gmail.com">Liverexectours@gmail.com</a></p>
+            <p><a href="mailto:info@liverexectours.com">info@liverexectours.com</a></p>
           </div>
         </div>
         <div class="contact-item">
           <div class="icon">&#128205;</div>
           <div>
             <h3>Service area</h3>
-            <p>Liverpool, Wirral, Sefton, Knowsley, St Helens, and Manchester (airport transfers).</p>
+            <p>Liverpool, Wirral, Sefton, Knowsley, St Helens, and Manchester as our core area — plus long-distance journeys and airport transfers UK-wide, including regular trips to London.</p>
           </div>
         </div>
         <div class="contact-item">
           <div class="icon">&#128337;</div>
           <div>
             <h3>Availability</h3>
-            <p>Bookings taken by appointment &mdash; call or email any time and we'll confirm availability.</p>
+            <p>Bookings taken by appointment — call or email any time and we'll confirm availability.</p>
           </div>
         </div>
       </div>
@@ -247,7 +263,7 @@
     <div class="footer-grid">
       <div>
         <h4>Liver Exec Tours</h4>
-        <p>Executive chauffeur service covering Liverpool, Merseyside, and Manchester. Corporate travel, airport transfers, and event transportation.</p>
+        <p>Executive chauffeur service covering Liverpool and the North West. Corporate travel, airport transfers, and event transportation.</p>
       </div>
       <div>
         <h4>Explore</h4>
@@ -262,14 +278,14 @@
         <h4>Get in touch</h4>
         <ul>
           <li><a href="tel:+447808299060">07808 299060</a></li>
-          <li><a href="mailto:Liverexectours@gmail.com">Liverexectours@gmail.com</a></li>
-          <li><p class="footer-plain">Liverpool &amp; Merseyside</p></li>
+          <li><a href="mailto:info@liverexectours.com">info@liverexectours.com</a></li>
+          <li><p class="footer-plain">Liverpool &amp; North West</p></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; <span data-year>2026</span> Liver Exec Tours. All rights reserved.</span>
-      <span>Liverpool &middot; Merseyside &middot; Manchester</span>
+      <span>Liverpool &middot; North West</span>
     </div>
   </div>
 </footer>
@@ -283,5 +299,6 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/edit-mode.js"></script>
 </body>
 </html>
