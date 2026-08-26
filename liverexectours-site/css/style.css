@@ -16,7 +16,7 @@
   --shadow: 0 20px 50px -20px rgba(42, 42, 42, 0.35);
   --serif: 'Fraunces', Georgia, serif;
   --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --headline: 'Mukta', 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --headline: 'IBM Plex Sans Devanagari', 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -48,7 +48,7 @@ h3 { font-size: 1.25rem; margin-bottom: 0.35em; }
 /* Section headlines only (About/Fleet/Book/FAQ/Contact <h2>s) — the hero
    title and nav logo keep Playfair Display SC via their own more specific
    rules (.hero-title, .logo), deliberately excluded from this change. */
-h2 { font-family: var(--headline); }
+h2 { font-family: var(--headline); text-align: center; }
 
 p { margin: 0 0 1em; }
 a { color: inherit; text-decoration: none; }
@@ -62,7 +62,8 @@ a { color: inherit; text-decoration: none; }
 .muted { color: var(--grey); font-weight: 400; font-size: 0.85rem; }
 
 .eyebrow {
-  display: inline-block;
+  display: block;
+  text-align: center;
   font-family: var(--sans);
   font-size: 0.8rem;
   font-weight: 600;
@@ -74,6 +75,9 @@ a { color: inherit; text-decoration: none; }
 
 .section-intro {
   max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   color: var(--grey);
   font-size: 1.05rem;
 }

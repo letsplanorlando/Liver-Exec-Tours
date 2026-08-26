@@ -74,7 +74,12 @@
   padding: 32px;
   box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.25);
 }
-.wizard-panel-title { font-size: 1.6rem; margin-bottom: 24px; }
+.wizard-panel-title {
+  font-family: var(--headline);
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+}
 
 /* ---------- trip type tabs ---------- */
 .trip-type-tabs {
