@@ -106,6 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
   bindText('bk-return-flight-number', 'returnFlightNumber');
   bindText('bk-date', 'date');
   bindText('bk-time', 'time');
+  bindText('bk-airport-date', 'date');
+  bindText('bk-airport-time', 'time');
+  bindText('bk-hourly-date', 'date');
+  bindText('bk-hourly-time', 'time');
   bindText('bk-name', 'name');
   bindText('bk-phone', 'phone');
   bindText('bk-email', 'email');
@@ -125,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // shared Date/Pickup time labels relabelled "Outbound..." so it's clear
   // which leg they belong to.
   var returnFieldsBlock = document.querySelector('[data-return-fields]');
+  var outboundHeading = document.querySelector('[data-outbound-heading]');
   var dateLabel = document.querySelector('[data-date-label]');
   var timeLabel = document.querySelector('[data-time-label]');
   var flightNumberLabel = document.querySelector('[data-flight-number-label]');
@@ -132,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateAirportDirectionUI() {
     var isReturn = state.flightDirection === 'return';
     if (returnFieldsBlock) returnFieldsBlock.hidden = !isReturn;
+    if (outboundHeading) outboundHeading.hidden = !isReturn;
     if (dateLabel) dateLabel.firstChild.textContent = isReturn ? 'Outbound date' : 'Date';
     if (timeLabel) timeLabel.firstChild.textContent = isReturn ? 'Outbound pickup time' : 'Pickup time';
     if (flightNumberLabel) flightNumberLabel.firstChild.textContent = isReturn ? 'Outbound flight number ' : 'Flight number ';
@@ -324,6 +330,22 @@ document.addEventListener('DOMContentLoaded', function () {
     upgradeAddressField('dropoff', 'dropoff', 'dropoffLoc');
     upgradeAddressField('airportAddress', 'airportAddress', 'airportAddressLoc');
     upgradeAddressField('hourlyPickup', 'hourlyPickup', 'hourlyPickupLoc');
+    // Hero enquiry bar fields — same widget, but there's no wizard `state` or
+    // route preview up there, so the simpler upgrader below is used instead.
+    upgradeHeroAddressField('heroPickup');
+    upgradeHeroAddressField('heroDropoff');
+
+    function configureAutocompleteElement(el) {
+      // GB-only, biased toward Liverpool/North West England so predictions
+      // don't default to wherever else in the world shares a street name.
+      // Best-effort: if these property names move on in a later API
+      // version, autocomplete still works, it just won't be region-biased.
+      try { el.includedRegionCodes = ['gb']; } catch (e) { /* ignore */ }
+      // 45km from central Liverpool comfortably covers Manchester, Warrington,
+      // Chester and Preston too — Google caps this at 50,000m exactly.
+      try { el.locationBias = { radius: 45000, center: { lat: 53.4084, lng: -2.9916 } }; } catch (e) { /* ignore */ }
+      el.style.width = '100%';
+    }
 
     function upgradeAddressField(role, stateKey, locKey) {
       var wrapper = document.querySelector('[data-address-role="' + role + '"]');
@@ -331,10 +353,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var plainInput = wrapper.querySelector('[data-plain-input]');
 
       var el = new placesLib.PlaceAutocompleteElement();
-      // Best-effort UK bias — if this property name has moved on in a later
-      // API version, autocomplete still works, it just won't be UK-biased.
-      try { el.componentRestrictions = { country: 'gb' }; } catch (e) { /* ignore */ }
-      el.style.width = '100%';
+      configureAutocompleteElement(el);
       if (plainInput) el.placeholder = plainInput.placeholder;
 
       wrapper.appendChild(el);
@@ -346,6 +365,29 @@ document.addEventListener('DOMContentLoaded', function () {
         state[stateKey] = place.formattedAddress || '';
         state[locKey] = place.location ? { lat: place.location.lat(), lng: place.location.lng() } : null;
         updateRoutePreview();
+      });
+    }
+
+    function upgradeHeroAddressField(role) {
+      var wrapper = document.querySelector('[data-address-role="' + role + '"]');
+      if (!wrapper) return;
+      var plainInput = wrapper.querySelector('[data-plain-input]');
+      if (!plainInput) return;
+
+      var el = new placesLib.PlaceAutocompleteElement();
+      configureAutocompleteElement(el);
+      el.placeholder = plainInput.placeholder;
+
+      wrapper.appendChild(el);
+      plainInput.style.display = 'none';
+
+      el.addEventListener('gmp-select', async function (evt) {
+        var place = evt.placePrediction.toPlace();
+        await place.fetchFields({ fields: ['formattedAddress'] });
+        // Write straight into the (hidden) original input so the hero bar's
+        // existing WhatsApp/email message-building in main.js — which reads
+        // this input's .value directly — keeps working completely unchanged.
+        plainInput.value = place.formattedAddress || '';
       });
     }
 

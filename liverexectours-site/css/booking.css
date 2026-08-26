@@ -132,6 +132,32 @@
 
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
+/* The Places widget renders in a closed shadow root, so it can't inherit
+   page styles the normal way — it defaults to following the OS/browser's
+   dark-mode preference instead, which is why it was showing up as a solid
+   black box. color-scheme + explicit background/border on the host element
+   are the officially supported hooks for controlling that. */
+.address-input gmp-place-autocomplete {
+  display: block;
+  color-scheme: light;
+  width: 100%;
+  background-color: var(--ivory);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+}
+.address-input gmp-place-autocomplete:focus-within { border-color: var(--brass); }
+
+/* Hero enquiry bar sits on a dark glass panel — give the widget the same
+   dark treatment as the plain inputs next to it, overriding the light
+   default above (this rule must stay after it to win on equal specificity). */
+.hero-address-input gmp-place-autocomplete {
+  color-scheme: dark;
+  background-color: rgba(245, 245, 245, 0.08);
+  border: 1.5px solid rgba(245, 245, 245, 0.25);
+  border-radius: 6px;
+}
+.hero-address-input gmp-place-autocomplete:focus-within { border-color: var(--brass-light); }
+
 .return-fields {
   margin-top: 4px;
   padding-top: 20px;

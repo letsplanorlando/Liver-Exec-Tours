@@ -65,11 +65,15 @@
           <form class="hero-enquiry" id="hero-enquiry-bar">
             <div class="hero-enquiry-field">
               <label for="he-pickup">Pickup location</label>
-              <input type="text" id="he-pickup" name="pickup" placeholder="Address, airport, hotel...">
+              <div class="address-input hero-address-input" data-address-role="heroPickup">
+                <input type="text" id="he-pickup" name="pickup" placeholder="Address, airport, hotel..." data-plain-input>
+              </div>
             </div>
             <div class="hero-enquiry-field">
               <label for="he-dropoff">Drop-off location</label>
-              <input type="text" id="he-dropoff" name="dropoff" placeholder="Address, airport, hotel...">
+              <div class="address-input hero-address-input" data-address-role="heroDropoff">
+                <input type="text" id="he-dropoff" name="dropoff" placeholder="Address, airport, hotel..." data-plain-input>
+              </div>
             </div>
             <div class="hero-enquiry-field hero-enquiry-field-narrow">
               <label for="he-date">Date</label>
@@ -213,6 +217,16 @@
                 <input type="text" id="bk-dropoff" placeholder="Address, hotel, postcode..." data-plain-input>
               </div>
             </div>
+            <div class="field-row">
+              <div class="field-group">
+                <label for="bk-date">Date</label>
+                <input type="date" id="bk-date">
+              </div>
+              <div class="field-group">
+                <label for="bk-time">Pickup time</label>
+                <input type="time" id="bk-time">
+              </div>
+            </div>
           </div>
 
           <div class="trip-panel" data-trip-panel="airport" hidden>
@@ -247,6 +261,18 @@
               <label for="bk-airport-address">Home / office / hotel address</label>
               <div class="address-input" data-address-role="airportAddress">
                 <input type="text" id="bk-airport-address" placeholder="Address, hotel, postcode..." data-plain-input>
+              </div>
+            </div>
+
+            <p class="return-fields-heading" data-outbound-heading hidden>Outbound journey</p>
+            <div class="field-row">
+              <div class="field-group">
+                <label for="bk-airport-date" data-date-label>Date</label>
+                <input type="date" id="bk-airport-date">
+              </div>
+              <div class="field-group">
+                <label for="bk-airport-time" data-time-label>Pickup time</label>
+                <input type="time" id="bk-airport-time">
               </div>
             </div>
             <div class="field-group">
@@ -291,16 +317,15 @@
                 <option>Full day (up to 10 hours)</option>
               </select>
             </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field-group">
-              <label for="bk-date" data-date-label>Date</label>
-              <input type="date" id="bk-date">
-            </div>
-            <div class="field-group">
-              <label for="bk-time" data-time-label>Pickup time</label>
-              <input type="time" id="bk-time">
+            <div class="field-row">
+              <div class="field-group">
+                <label for="bk-hourly-date">Date</label>
+                <input type="date" id="bk-hourly-date">
+              </div>
+              <div class="field-group">
+                <label for="bk-hourly-time">Pickup time</label>
+                <input type="time" id="bk-hourly-time">
+              </div>
             </div>
           </div>
 
