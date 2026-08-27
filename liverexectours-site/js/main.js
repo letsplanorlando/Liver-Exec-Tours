@@ -159,13 +159,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---- Hero content reveal --------------------------------------------
   // Desktop: title block + enquiry box fade in together once the video
-  // has settled. Mobile: photo, then title ("LET"), then the enquiry box
-  // fade in one at a time, so nothing appears all at once.
+  // has settled. Mobile: the background photo loads in straight away
+  // (no fade), then title ("Liver Exec Tours") and the enquiry box fade
+  // in one at a time so they don't all appear at once.
   (function initHeroReveal() {
     var hero = document.querySelector('[data-hero]');
     if (!hero) return;
 
-    var photo = hero.querySelector('.hero-photo-mobile');
     var titleBlock = hero.querySelector('.hero-title-block');
     var enquiryBlock = hero.querySelector('.hero-enquiry-block');
 
@@ -174,9 +174,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (window.innerWidth <= 720) {
-      setTimeout(function () { reveal(photo); }, 200);
-      setTimeout(function () { reveal(titleBlock); }, 1100);
-      setTimeout(function () { reveal(enquiryBlock); }, 1900);
+      setTimeout(function () { reveal(titleBlock); }, 900);
+      setTimeout(function () { reveal(enquiryBlock); }, 1700);
     } else {
       setTimeout(function () {
         reveal(titleBlock);

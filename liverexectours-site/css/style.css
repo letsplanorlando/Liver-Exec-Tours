@@ -392,7 +392,8 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 720px) {
   .hero.is-scrubbing { height: 200vh; }
 
-  /* On mobile: swap the video for a static photo that fades in. */
+  /* On mobile: swap the video for a static photo, shown immediately
+     (no fade — see main.js initHeroReveal). */
   .hero-video { display: none; }
   .hero-pin { background: #000; }
   .hero-photo-mobile {
@@ -405,8 +406,13 @@ a { color: inherit; text-decoration: none; }
     object-position: center top;
     z-index: 0;
   }
-  .hero-title-full { display: none; }
-  .hero-title-mark { display: block; }
+  /* "LET" retired 2026-08-27 — full name shown on mobile again, sized to
+     wrap onto two lines ("Liver Exec" / "Tours") on narrower phones. */
+  .hero-title-mark { display: none; }
+  .hero-title-full {
+    font-size: clamp(2.1rem, 9vw, 2.6rem);
+    line-height: 1.15;
+  }
 }
 
 /* ---------- FAQ section ---------- */
