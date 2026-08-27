@@ -395,7 +395,10 @@ a { color: inherit; text-decoration: none; }
   /* On mobile: swap the video for a static photo, shown immediately
      (no fade — see main.js initHeroReveal). */
   .hero-video { display: none; }
-  .hero-pin { background: #000; }
+  /* 100svh (small viewport height) instead of 100vh — stops the mobile
+     browser's address-bar collapse-on-scroll from resizing this box,
+     which made the cover-fit photo look like it was subtly zooming. */
+  .hero-pin { background: #000; height: 100svh; }
   .hero-photo-mobile {
     display: block;
     position: absolute;
@@ -425,7 +428,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   inset: 0;
   background-image: url('../images/faqphotomobile.jpeg');
-  background-size: 100% auto;
+  background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
   background-color: var(--navy);
