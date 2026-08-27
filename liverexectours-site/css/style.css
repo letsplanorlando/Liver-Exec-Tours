@@ -441,7 +441,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   background: none;
   border: none;
-  text-align: center;
+  text-align: left;
   padding: 20px 0;
   font-family: var(--serif);
   font-size: 1.05rem;
@@ -449,7 +449,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--white);
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 16px;
 }
@@ -571,7 +571,6 @@ a { color: inherit; text-decoration: none; }
    misaligned rather than intentional. */
 .contact-item h3 { font-family: var(--headline); font-weight: 700; }
 .contact-item .icon {
-  font-size: 1.3rem;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -580,6 +579,11 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--navy);
+}
+.contact-item .icon svg {
+  width: 20px;
+  height: 20px;
 }
 .contact-item h3 { font-size: 1rem; margin-bottom: 2px; }
 .contact-item p { margin: 0; color: var(--grey); }
