@@ -60,7 +60,8 @@ Nav links: Home / Fleet / Contact (trimmed from 5 items)
   3. **"Our Fleet"** — 16-seater/7-seater Vito/Lexus SUV summary + the flexibility line, merged (the old standalone closing paragraph was dropped as redundant with column 1's framing)
 
 ### FAQ section
-- 5 accordion items, between Fleet and Contact
+- 5 accordion items, between Book and Contact (Book section inserted 2026-08-26, see § Page structure)
+- **Question rows centred 2026-08-27** (`.faq-q`: `text-align`/`justify-content` both `center`, was `left`/`space-between` with the `+`/`×` icon pinned to the right edge — now sits centred immediately next to the question text instead). Answers (`.faq-a`) deliberately left as `text-align: left` — same readability reasoning as everywhere else this session: short question labels centre fine, multi-line answer prose doesn't.
 - Background: `images/faqphotomobile.jpeg` (portrait, both vehicles, full Liver Building + Port of Liverpool building)
 - Background is `position: absolute; inset: 0; background-size: 100% auto; background-position: center top` — fixed scale, never rescales when an accordion item opens (earlier `height:100vh; min-height:100%` approach caused a jump on expand)
 - Dark gradient overlay, `rgba(42,42,42,0.82–0.70)` (gunmetal — updated 2026-08-26 from the old navy `rgba(16,25,43,…)`)
