@@ -1,47 +1,20 @@
-# Getting the redesigned website live on BigWetFish
+# Getting the website live on BigWetFish
 
-*Updated 2026-08-14 — this replaces the previous version of this guide. The site has been completely redesigned (new "Waterfront" look: ivory/navy/brass, real Liverpool waterfront photography of the fleet) but the upload process is unchanged since you're staying on BigWetFish manual upload.*
+*Updated 2026-08-28 after the first real upload. This file now only covers the upload mechanics — for what's currently on the site, see `CLAUDE.md` in this folder, which is the single source of truth for that.*
 
-## 1. Upload the files
+## 1. Find the right folder first — don't skip this
 
-1. Log in to your BigWetFish account and open the **Enhance** control panel for liverexectours.com.
-2. Look for **File Manager** (sometimes under "Files" or "Website").
-3. Navigate to your site's web root — usually called `public_html`, `htdocs`, or just `/` depending on how Enhance labels it.
-4. Delete or rename whatever's currently there (the blank placeholder page).
-5. Upload the **contents** of the `liverexectours-site` folder (not the folder itself) into that web root — you should end up with `index.html` and the `css`, `js`, `images` folders all sitting directly in the web root.
-6. Visit liverexectours.com in a browser to check it's live. It can take a few minutes to update.
+This BigWetFish account hosts **three separate domains** under one login: `realmoments.co.uk` (a different business — the account's main domain, files in `public_html`), `letsplanorlando.com`, and `liverexectours.com`. Liver Exec Tours' files go in **`/home/realmome/liverexectours.com`**, not `public_html` — uploading to the wrong folder would overwrite a different, unrelated live site.
 
-If File Manager doesn't accept a folder upload directly, zip the contents of `liverexectours-site` first, upload the zip, then look for an "extract" option after uploading.
+To confirm the right folder: cPanel → **Domains** → find `liverexectours.com` in the list → the "Document Root" column shows the exact path. Always check this if it's been a while since the last upload, in case the account structure ever changes.
 
-## 2. What changed in this redesign
+## 2. Upload the files
 
-- Colour palette: gunmetal/porcelain/champagne as of 2026-08-26 (previously ivory/navy/brass, and before that dark charcoal/gold) — typefaces are Fraunces for headings, Work Sans for body text, Playfair Display SC for the hero/nav wordmark.
-- Real photos now used throughout instead of placeholders: the Vito and Sprinter both have dedicated shots taken outside the Royal Liver Building, and the hero banner uses a shot with the actual Liver Building clock tower.
-- The **Lexus SUV** still has no photo — it shows a styled "Photo coming soon" card rather than a broken image. Same for adding one later:
-  1. Take/select a photo (landscape orientation works best, roughly 1400×1050px, under 400KB for fast loading).
-  2. Name it `fleet-lexus.jpg` and upload it into the `images` folder via File Manager.
-  3. In `index.html`, find the Lexus card in the Fleet section — it currently looks like this:
+1. Log in to cPanel (`server815.bigwetfish.co.uk:2083`, or via BigWetFish's account panel) and open **File Manager**.
+2. Navigate to `liverexectours.com`'s document root (found in step 1).
+3. Upload the **contents** of the `liverexectours-site` folder (not the folder itself) — you should end up with `index.html` and the `css`, `js`, `images` folders sitting directly in that folder. Exclude `.DS_Store`, `_to_delete/`, and `index.html.bak` — none of those are meant to ship.
+4. Visit `liverexectours.com` in a browser to confirm it's live. Hard-refresh (or use a private/incognito tab) if it looks stale — this site has been bitten by browser caching before.
 
-     ```html
-     <div class="fleet-photo fleet-photo-placeholder">
-       <span class="ph-label">Photo coming soon</span>
-       <span class="ph-sub">Lexus SUV</span>
-     </div>
-     ```
+**On file size:** File Manager's uploader (and some automation tools) can choke on very large uploads. If uploading the whole `liverexectours-site` folder as one zip fails or is rejected for size, split it into a few smaller zips instead (e.g. core files + a couple of image batches, each under ~8MB), upload each separately, and use File Manager's **Extract** feature on each — they'll merge into the same destination folder correctly since the zips share the same relative paths (`index.html`, `css/...`, `js/...`, `images/...`). Delete the zip(s) afterwards; they're not meant to stay on the server.
 
-     Replace it with:
-
-     ```html
-     <div class="fleet-photo">
-       <img src="images/fleet-lexus.jpg" alt="Liver Exec Tours Lexus SUV" loading="lazy" width="1400" height="1050">
-     </div>
-     ```
-
-     Most file managers have a built-in code editor — click the file, find that block, and edit directly in the browser. Happy to do this edit for you directly once you've got the photo — just share it here.
-
-## 3. A couple of things worth knowing
-
-- **The contact form** submits into a Supabase database when `SUPABASE_URL` / `SUPABASE_ANON_KEY` are filled in near the bottom of `index.html` (currently blank) — until then it falls back to opening the visitor's email app with the message pre-filled. Ask if you want help getting the Supabase keys wired in.
-- **The phone number and email** are `07808 299060` / `info@liverexectours.com` (that inbox forwards to `liverexectours@gmail.com`, which is what's actually checked). They appear across `index.html` (5+ instances) and in `js/main.js` (the WhatsApp number and the hero enquiry bar's email address) — ask me to update it if either changes again. Note the Google Business Profile listing may still show the old `Liverexectours@gmail.com` — it wasn't updated as part of this change.
-- **Nothing on this site names Carlsberg or Boodles** — it uses the "trusted by leading Liverpool corporates and retail brands" line, consistent with the Business Profile and the open decision on client-showcase approach.
-- This folder (not the Claude Project) is now the source of truth for the website — see `CLAUDE.md` in the folder root for full status.
+There's no FTP or git-based auto-deploy set up for production — this manual re-zip-and-reupload process is the standard way to update the live site until that changes.
