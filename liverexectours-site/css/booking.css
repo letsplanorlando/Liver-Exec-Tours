@@ -344,7 +344,6 @@
 
 @media (max-width: 620px) {
   .wizard-main { padding: 22px 18px; }
-  .field-row { grid-template-columns: 1fr; }
   .vehicle-grid { grid-template-columns: 1fr; }
   .wizard-step-label { display: none; }
   .wizard-stepper { padding: 0 12px; }
