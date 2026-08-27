@@ -73,7 +73,14 @@
   border-radius: 8px;
   padding: 32px;
   box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.25);
+  /* Grid items default to min-width:auto, so a wide-enough descendant
+     (the Places widget's shadow-DOM internals, or a native date/time
+     input — both known for stubborn intrinsic widths in Safari) can
+     quietly push this wider than its track instead of shrinking,
+     shifting the whole section right. min-width:0 lets it shrink properly. */
+  min-width: 0;
 }
+.wizard-side { min-width: 0; }
 .wizard-panel-title {
   font-family: var(--headline);
   font-weight: 700;
@@ -106,7 +113,7 @@
 .trip-tab.is-active { color: var(--navy); border-bottom-color: var(--brass); }
 
 /* ---------- fields ---------- */
-.field-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 6px; }
+.field-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .field-group label,
 .field-label-static {
   font-size: 0.85rem;
@@ -227,6 +234,7 @@
   padding: 20px;
   cursor: pointer;
   position: relative;
+  min-width: 0;
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .vehicle-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.35); }
