@@ -522,20 +522,35 @@ a { color: inherit; text-decoration: none; }
 .fleet-specs strong { color: var(--navy); }
 
 /* ---------- about ---------- */
+/* Three balanced feature columns (redesigned 2026-08-27 from a lopsided
+   2-column/5-paragraph layout — copy was tightened into one short,
+   evenly-sized blurb per theme so the columns actually line up). Headings
+   + short blurbs read fine centred, unlike a long-form paragraph. */
 .about-cols {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
   margin-top: 32px;
 }
 .about-cols > div {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
-.about-cols p { color: var(--grey); margin: 0; }
+.about-cols h3 {
+  font-family: var(--headline);
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+.about-cols p { color: var(--grey); margin: 0; text-align: center; }
+@media (max-width: 900px) {
+  .about-cols { grid-template-columns: 1fr 1fr; }
+  .about-cols > div:last-child { grid-column: span 2; max-width: 460px; margin: 0 auto; }
+}
 @media (max-width: 720px) {
-  .about-cols { grid-template-columns: 1fr; gap: 20px; }
+  .about-cols { grid-template-columns: 1fr; gap: 28px; }
+  .about-cols > div:last-child { grid-column: auto; max-width: none; margin: 0; }
 }
 
 /* ---------- contact ---------- */

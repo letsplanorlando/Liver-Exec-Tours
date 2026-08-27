@@ -20,7 +20,7 @@
   - Previous palette (superseded): warm ivory (`#F4EFE6`) + deep navy (`#10192B`) + brass (`#C4973A`), confirmed 2026-08-15.
 - **Type:** Fraunces (serif, body headings not covered below) + Work Sans (body) + Playfair Display SC (hero title + nav wordmark specifically, unchanged throughout all of the below) + **PT Serif** (current, as of 2026-08-27 — went through two earlier tries first: Mukta on 2026-08-26, then IBM Plex Sans Devanagari, both replaced because Joe didn't like them once he saw them live; PT Serif only ships weights 400/700, no 600, so every rule below sets `font-weight: 700` explicitly rather than inheriting the general heading rule's 600) via the `--headline` CSS variable in `style.css`.
   - **Where it applies, and centred vs left-aligned — settled 2026-08-27 after a couple of scope-widening rounds:** the five main section `<h2>`s (About/Fleet/Book/FAQ/Contact) and their `.eyebrow` + `.section-intro`; the Book section's wizard-step `<h3>`s ("Journey details" etc.); `.route-panel h3` ("Route preview") and `.side-help-card h4` ("Prefer to just call?"); fleet/vehicle card names (`.fleet-card h3`, `.vehicle-card h3`); footer column headings (`.site-footer h4`) — all centred. **One deliberate exception:** `.contact-item h3` (Phone/Email/Service area/Availability) gets the font but stays left-aligned, since it sits in a flex row next to a fixed icon and centring would look misaligned against the left-aligned text below it, not intentional.
-  - Deliberately *never* touched: About's two-column body paragraphs (`.about-cols p`) and the hero title/nav logo — centring flowing paragraph text hurts readability, and the logo isn't a "headline".
+  - Deliberately never touched: the hero title/nav logo — not a "headline" in the section-copy sense. (About's `.about-cols p` *is* now centred as of the 2026-08-27 three-column redesign — see § About section below — because it's short feature-blurb text now, not the long-form paragraphs this rule originally referred to.)
 - **Text on `--brass` (champagne) fill backgrounds:** must be dark (`--navy`), not white — champagne is much lighter than the old brass and white text on it is close to unreadable. `.btn-primary` uses `color: var(--navy)` normally, flipping to `color: var(--white)` only in `:hover` once the background itself flips to `--navy`. Champagne as a *text* colour (eyebrows, accents on both light and dark backgrounds) is unaffected — that pattern is lifted directly from the palette file's own card-eyebrow example.
 
 ### Page structure (current)
@@ -52,9 +52,12 @@ Nav links: Home / Fleet / Contact (trimmed from 5 items)
 - Send buttons are centred as a pair, field labels solid white at 0.75rem (both fixed 2026-08-25 — buttons were left-aligned, labels were a dim translucent ivory at 0.68rem)
 
 ### About section
-- Added 2026-08-16 (placeholder wording), **rewritten with real copy 2026-08-26**
-- `.about-cols` now holds two wrapper `<div>`s (2 paragraphs left, 3 right) rather than bare `<p>` siblings, so multi-paragraph columns stack correctly — still collapses to one column on mobile
-- Covers: 20+ years' experience, client base (specific client names anonymised per the client-naming rule above), service range (executive/corporate/long-distance/airport transfers, explicitly UK-wide including regular London journeys), fleet summary, closing line
+- Added 2026-08-16 (placeholder wording), rewritten with real copy 2026-08-26, **redesigned into 3 columns 2026-08-27** — Joe wanted the text to "fit nicely into 3 columns" and explicitly OK'd rewording to make that work, since the previous 2-column/5-paragraph version (2 left, 3 right) wouldn't split evenly three ways.
+- `.about-cols` is now `grid-template-columns: repeat(3, 1fr)`, one short `<h3>` (PT Serif, centred) + one tightened paragraph (also centred — short feature-blurb text reads fine centred, unlike the old long-form paragraphs) per column, word-balanced (~42-46 words each) so no column visibly runs longer than the others. Responsive: 3 cols → 2 cols at 900px (third column spans both, capped at 460px width, centred) → 1 col at 720px.
+- The three columns and what each consolidates from the old 5-paragraph version:
+  1. **"20+ Years' Experience"** — years + reputation (reliability, discretion, exceptional service)
+  2. **"Who We Work With"** — client base (still anonymised per the client-naming rule above) + service range (executive/corporate/long-distance/airport transfers, UK-wide including regular London journeys)
+  3. **"Our Fleet"** — 16-seater/7-seater Vito/Lexus SUV summary + the flexibility line, merged (the old standalone closing paragraph was dropped as redundant with column 1's framing)
 
 ### FAQ section
 - 5 accordion items, between Fleet and Contact
