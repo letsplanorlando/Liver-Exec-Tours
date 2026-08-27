@@ -271,7 +271,7 @@
   padding: 24px;
   box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.25);
 }
-.route-panel h3 { margin-bottom: 16px; }
+.route-panel h3 { font-family: var(--headline); text-align: center; margin-bottom: 16px; }
 .route-map {
   position: relative;
   border-radius: 6px;
@@ -320,7 +320,7 @@
   padding: 24px;
   text-align: center;
 }
-.side-help-card h4 { margin-bottom: 6px; }
+.side-help-card h4 { font-family: var(--headline); margin-bottom: 6px; }
 .side-help-card p { margin: 0 0 4px; }
 .side-help-card a { font-weight: 700; color: var(--navy); font-size: 1.1rem; }
 .side-help-card a:hover { color: var(--brass); }
