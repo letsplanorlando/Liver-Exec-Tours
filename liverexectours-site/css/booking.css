@@ -76,6 +76,7 @@
 }
 .wizard-panel-title {
   font-family: var(--headline);
+  font-weight: 700;
   text-align: center;
   font-size: 1.6rem;
   margin-bottom: 24px;
@@ -247,6 +248,7 @@
   font-size: 0.9rem;
 }
 .vehicle-card .fleet-photo { margin-bottom: 16px; }
+.vehicle-card h3 { font-family: var(--headline); font-weight: 700; text-align: center; }
 .vehicle-note { color: var(--grey); font-size: 0.9rem; margin: 4px 0 20px; }
 
 /* ---------- confirm summary ---------- */
@@ -271,7 +273,7 @@
   padding: 24px;
   box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.25);
 }
-.route-panel h3 { font-family: var(--headline); text-align: center; margin-bottom: 16px; }
+.route-panel h3 { font-family: var(--headline); font-weight: 700; text-align: center; margin-bottom: 16px; }
 .route-map {
   position: relative;
   border-radius: 6px;
@@ -320,7 +322,7 @@
   padding: 24px;
   text-align: center;
 }
-.side-help-card h4 { font-family: var(--headline); margin-bottom: 6px; }
+.side-help-card h4 { font-family: var(--headline); font-weight: 700; margin-bottom: 6px; }
 .side-help-card p { margin: 0 0 4px; }
 .side-help-card a { font-weight: 700; color: var(--navy); font-size: 1.1rem; }
 .side-help-card a:hover { color: var(--brass); }

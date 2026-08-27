@@ -16,7 +16,7 @@
   --shadow: 0 20px 50px -20px rgba(42, 42, 42, 0.35);
   --serif: 'Fraunces', Georgia, serif;
   --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --headline: 'IBM Plex Sans Devanagari', 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --headline: 'PT Serif', Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -48,7 +48,18 @@ h3 { font-size: 1.25rem; margin-bottom: 0.35em; }
 /* Section headlines only (About/Fleet/Book/FAQ/Contact <h2>s) — the hero
    title and nav logo keep Playfair Display SC via their own more specific
    rules (.hero-title, .logo), deliberately excluded from this change. */
-h2 { font-family: var(--headline); text-align: center; }
+h2 { font-family: var(--headline); font-weight: 700; text-align: center; }
+
+/* Card/column headings that sit above left-aligned body copy — same
+   headline font + centring as the main section titles, extended here
+   2026-08-27 at Joe's request ("do it all"). Contact's icon-row headings
+   are the one deliberate exception — see the § Contact rules below for why. */
+.fleet-card h3,
+.site-footer h4 {
+  font-family: var(--headline);
+  font-weight: 700;
+  text-align: center;
+}
 
 p { margin: 0 0 1em; }
 a { color: inherit; text-decoration: none; }
@@ -539,6 +550,11 @@ a { color: inherit; text-decoration: none; }
   gap: 18px;
   margin-bottom: 30px;
 }
+/* Font updated to match the other headings, but deliberately left-aligned,
+   not centred — these sit in a flex row next to a fixed icon, so a centred
+   heading over a left-aligned phone number/address below would look
+   misaligned rather than intentional. */
+.contact-item h3 { font-family: var(--headline); font-weight: 700; }
 .contact-item .icon {
   font-size: 1.3rem;
   width: 44px;
