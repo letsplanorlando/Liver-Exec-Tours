@@ -434,7 +434,7 @@ a { color: inherit; text-decoration: none; }
 .faq-container { position: relative; z-index: 1; }
 .faq-eyebrow { color: var(--brass-light); }
 .faq-heading { color: var(--white); margin-bottom: 40px; }
-.faq-list { max-width: 720px; }
+.faq-list { max-width: 720px; margin: 0 auto; }
 .faq-item { border-bottom: 1px solid rgba(245, 245, 245,0.15); }
 .faq-item:first-child { border-top: 1px solid rgba(245, 245, 245,0.15); }
 .faq-q {
