@@ -301,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
     script.onload = function () { waitForImportLibrary(onMapsLoaded); };
     script.onerror = function () {
       console.warn('Liver Exec Tours booking example: Google Maps failed to load — check the API key, billing, and that Maps JavaScript API / Places API / Directions API are all enabled on it.');
+      showRoutePlaceholderMessage('Live map preview isn’t available right now — your journey details still go through fine, we’ll confirm the route directly.');
     };
     document.head.appendChild(script);
   }
@@ -316,15 +317,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     if (attemptsLeft <= 0) {
       console.warn('Liver Exec Tours booking example: Google Maps script loaded but importLibrary never became available.');
+      showRoutePlaceholderMessage('Live map preview isn’t available right now — your journey details still go through fine, we’ll confirm the route directly.');
       return;
     }
     setTimeout(function () { waitForImportLibrary(callback, attemptsLeft - 1); }, 100);
   }
 
+  // Swaps the "add a key" placeholder copy for a failure message, used any
+  // time Maps has a key but doesn't actually come up (blocked script, no
+  // importLibrary, or — inside updateRoutePreview — a non-OK Directions
+  // status). Left alone (default copy) when no key is set at all.
+  function showRoutePlaceholderMessage(text) {
+    var placeholder = document.querySelector('[data-route-placeholder] p');
+    if (placeholder) placeholder.textContent = text;
+  }
+
   async function onMapsLoaded() {
-    var placesLib = await google.maps.importLibrary('places');
-    var mapsLib = await google.maps.importLibrary('maps');
-    var routesLib = await google.maps.importLibrary('routes');
+    var placesLib, mapsLib, routesLib;
+    try {
+      placesLib = await google.maps.importLibrary('places');
+      mapsLib = await google.maps.importLibrary('maps');
+      routesLib = await google.maps.importLibrary('routes');
+    } catch (err) {
+      // A library can reject even after the script itself loaded fine — e.g.
+      // one of the 3 APIs briefly not enabled, or a transient network/billing
+      // hiccup fetching it. Without this, the placeholder is left showing its
+      // default "add a key" copy even though a key is set, which is exactly
+      // what looks like "the map says it needs an API key" when one exists.
+      console.warn('Liver Exec Tours: Google Maps library failed to load', err);
+      showRoutePlaceholderMessage('Live map preview isn’t available right now — your journey details still go through fine, we’ll confirm the route directly.');
+      return;
+    }
 
     upgradeAddressField('pickup', 'pickup', 'pickupLoc');
     upgradeAddressField('dropoff', 'dropoff', 'dropoffLoc');
@@ -426,6 +449,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function clearRoutePreview() {
     var statsEl = document.querySelector('[data-route-stats]');
     if (statsEl) statsEl.hidden = true;
+    var errorEl = document.querySelector('[data-route-error]');
+    if (errorEl) errorEl.hidden = true;
     if (directionsRenderer) directionsRenderer.setDirections({ routes: [] });
   }
 
@@ -439,10 +464,20 @@ document.addEventListener('DOMContentLoaded', function () {
       destination: od.destination,
       travelMode: google.maps.TravelMode.DRIVING
     }, function (result, status) {
-      if (status !== 'OK') return;
+      var statsEl = document.querySelector('[data-route-stats]');
+      var errorEl = document.querySelector('[data-route-error]');
+      if (status !== 'OK') {
+        // Surfaced so a future "the map isn't working" report comes with an
+        // actual reason in the console (REQUEST_DENIED, OVER_QUERY_LIMIT,
+        // ZERO_RESULTS, etc.) instead of nothing to go on.
+        console.warn('Liver Exec Tours: route preview request failed with status', status);
+        if (statsEl) statsEl.hidden = true;
+        if (errorEl) errorEl.hidden = false;
+        return;
+      }
+      if (errorEl) errorEl.hidden = true;
       directionsRenderer.setDirections(result);
       var leg = result.routes[0].legs[0];
-      var statsEl = document.querySelector('[data-route-stats]');
       if (statsEl) {
         statsEl.hidden = false;
         document.querySelector('[data-route-distance]').textContent = (leg.distance.value / 1609.34).toFixed(1);
