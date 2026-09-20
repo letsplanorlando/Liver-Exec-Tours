@@ -2,6 +2,16 @@
 
 *Updated 2026-08-28 after the first real upload. This file now only covers the upload mechanics — for what's currently on the site, see `CLAUDE.md` in this folder, which is the single source of truth for that.*
 
+## 0. Pre-flight — ten seconds, don't skip
+
+From the project folder, run:
+
+```
+grep -n PLACEHOLDER liverexectours-site/index.html
+```
+
+It must print **nothing**. If it finds the `PLACEHOLDER QUOTES` comment, the testimonials are still placeholder wording — don't upload until they've been replaced with real, client-approved quotes (see `CLAUDE.md` → Open items).
+
 ## 1. Find the right folder first — don't skip this
 
 This BigWetFish account hosts **three separate domains** under one login: `realmoments.co.uk` (a different business — the account's main domain, files in `public_html`), `letsplanorlando.com`, and `liverexectours.com`. Liver Exec Tours' files go in **`/home/realmome/liverexectours.com`**, not `public_html` — uploading to the wrong folder would overwrite a different, unrelated live site.

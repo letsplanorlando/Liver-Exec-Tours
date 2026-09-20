@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     hourlyPickup: '', hourlyPickupLoc: null,
     duration: '',
     date: '', time: '',
-    name: '', passengers: '', notes: ''
+    name: '', phone: '', passengers: '', notes: ''
   };
 
   // ---- Step navigation ------------------------------------------------
@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
   bindText('bk-hourly-date', 'date');
   bindText('bk-hourly-time', 'time');
   bindText('bk-name', 'name');
+  bindText('bk-phone', 'phone');
   bindText('bk-notes', 'notes');
 
   // ---- Hero bar -> planner carry-over -----------------------------------
@@ -255,6 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
     journeyLines().forEach(function (r) { lines.push(r[0] + ': ' + r[1]); });
     lines.push('Passengers: ' + (state.passengers || 'Not specified'));
     lines.push('Name: ' + (state.name || 'Not specified'));
+    lines.push('Phone: ' + (state.phone.trim() || 'Not specified'));
     if (state.notes) lines.push('Notes: ' + state.notes);
     return lines.join('\n');
   }
@@ -263,6 +265,8 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function () {
       clearError(2);
       if (!state.name.trim()) { showError(2, 'Please add your name.'); return; }
+      // Loose on purpose (spaces, +, brackets all fine): just enough digits to be a real number.
+      if (state.phone.replace(/\D/g, '').length < 7) { showError(2, 'Please add a phone number we can reach you on.'); return; }
       var text = buildMessageText();
       if (btn.getAttribute('data-submit') === 'whatsapp') {
         window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
