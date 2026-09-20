@@ -563,82 +563,6 @@ a { color: inherit; text-decoration: none; }
   .about-cols > div:last-child { grid-column: auto; max-width: none; margin: 0; }
 }
 
-/* ---------- contact ---------- */
-.contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 56px;
-  margin-top: 48px;
-}
-.contact-item {
-  display: flex;
-  gap: 18px;
-  margin-bottom: 30px;
-}
-/* Font updated to match the other headings, but deliberately left-aligned,
-   not centred — these sit in a flex row next to a fixed icon, so a centred
-   heading over a left-aligned phone number/address below would look
-   misaligned rather than intentional. */
-.contact-item h3 { font-family: var(--headline); font-weight: 700; }
-.contact-item .icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--navy);
-}
-.contact-item .icon svg {
-  width: 20px;
-  height: 20px;
-}
-.contact-item h3 { font-size: 1rem; margin-bottom: 2px; }
-.contact-item p { margin: 0; color: var(--grey); }
-.contact-item a { color: var(--navy); font-weight: 600; }
-
-.enquiry {
-  background: var(--white);
-  padding: 32px;
-  border-radius: 8px;
-  box-shadow: 0 12px 30px -18px rgba(42, 42, 42,0.25);
-  display: flex;
-  flex-direction: column;
-}
-.enquiry label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--navy);
-  margin: 14px 0 6px;
-}
-.enquiry label:first-child { margin-top: 0; }
-.enquiry input,
-.enquiry select,
-.enquiry textarea {
-  font-family: var(--sans);
-  font-size: 0.95rem;
-  padding: 12px 14px;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--ivory);
-  color: var(--ink);
-}
-.enquiry input:focus,
-.enquiry select:focus,
-.enquiry textarea:focus {
-  outline: none;
-  border-color: var(--brass);
-}
-.enquiry textarea { min-height: 100px; resize: vertical; }
-.enquiry .btn { margin-top: 22px; }
-.form-status { min-height: 1.2em; font-size: 0.9rem; margin: 10px 0 0; }
-.form-status.success { color: #3E7A4E; }
-.form-status.error { color: #B8452F; }
-.form-note { font-size: 0.85rem; color: var(--grey); margin-top: 10px; }
-.form-note a { color: var(--brass); font-weight: 600; }
-
 /* ---------- footer ---------- */
 .site-footer {
   background: var(--navy);
@@ -683,7 +607,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 900px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
 }
 
@@ -711,7 +634,6 @@ a { color: inherit; text-decoration: none; }
   .section { padding: 52px 0; }
   .hero-buttons .btn { flex: 1 1 auto; }
   .card { padding: 18px; }
-  .enquiry { padding: 22px 18px; }
   .site-footer { padding: 48px 0 20px; }
   .footer-grid { gap: 28px; }
   .about-cols { gap: 14px; }

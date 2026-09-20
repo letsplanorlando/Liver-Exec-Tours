@@ -1,4 +1,4 @@
-/* Liver Exec Tours — booking wizard (homepage "Book a Journey" section) */
+/* Liver Exec Tours — Plan Trip wizard (homepage #book section) */
 
 /* Elements below set their own `display` (flex/grid) for their visible
    state, which otherwise beats the browser's default `[hidden]{display:none}`
@@ -11,7 +11,7 @@
 .wizard-stepper {
   display: flex;
   align-items: flex-start;
-  max-width: 640px;
+  max-width: 360px;
   margin: 48px auto;
 }
 .wizard-step-item {
@@ -219,47 +219,8 @@
   text-align: center;
 }
 
-/* ---------- vehicle step ---------- */
-.vehicle-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.vehicle-card {
-  text-align: left;
-  font-family: inherit;
-  background: var(--white);
-  border: 2px solid var(--border);
-  border-radius: 8px;
-  padding: 20px;
-  cursor: pointer;
-  position: relative;
-  min-width: 0;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-.vehicle-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -18px rgba(42, 42, 42, 0.35); }
-.vehicle-card.is-selected { border-color: var(--brass); }
-.vehicle-card.is-selected::after {
-  content: "\2713";
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--brass);
-  color: var(--navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-.vehicle-card .fleet-photo { margin-bottom: 16px; }
-.vehicle-card h3 { font-family: var(--headline); font-weight: 700; text-align: center; }
-.vehicle-note { color: var(--grey); font-size: 0.9rem; margin: 4px 0 20px; }
-
 /* ---------- confirm summary ---------- */
+.summary-heading { margin-top: 28px; }
 .booking-summary { margin: 0; }
 .summary-row {
   display: flex;
@@ -339,13 +300,10 @@
 @media (max-width: 900px) {
   .wizard-layout { grid-template-columns: 1fr; }
   .wizard-side { position: static; }
-  .vehicle-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 620px) {
   .wizard-main { padding: 22px 18px; }
-  .vehicle-grid { grid-template-columns: 1fr; }
-  .wizard-step-label { display: none; }
   .wizard-stepper { padding: 0 12px; }
   .wizard-actions { flex-wrap: wrap; gap: 14px; }
   .wizard-actions-confirm { flex-direction: column; align-items: stretch; }

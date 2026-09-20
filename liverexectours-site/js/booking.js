@@ -16,12 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     'Manchester — Signature Flight Support': { lat: 53.3537, lng: -2.2750 }
   };
 
-  var VEHICLE_NAMES = {
-    vito: 'Mercedes Vito (7 seats)',
-    lexus: 'Lexus SUV (3 seats)',
-    sprinter: 'Mercedes Sprinter (16 seats)'
-  };
-
   var state = {
     tripType: 'oneway',
     pickup: '', pickupLoc: null,
@@ -34,8 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     hourlyPickup: '', hourlyPickupLoc: null,
     duration: '',
     date: '', time: '',
-    vehicle: '',
-    name: '', phone: '', email: '', passengers: '1', notes: ''
+    name: '', passengers: '', notes: ''
   };
 
   // ---- Step navigation ------------------------------------------------
@@ -55,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     connectors.forEach(function (c, i) {
       c.classList.toggle('is-done', (i + 1) < n);
     });
-    if (n === 4) renderSummary();
+    if (n === 2) renderSummary();
 
     var mainEl = document.querySelector('.wizard-main');
     if (mainEl) {
@@ -111,9 +104,28 @@ document.addEventListener('DOMContentLoaded', function () {
   bindText('bk-hourly-date', 'date');
   bindText('bk-hourly-time', 'time');
   bindText('bk-name', 'name');
-  bindText('bk-phone', 'phone');
-  bindText('bk-email', 'email');
   bindText('bk-notes', 'notes');
+
+  // ---- Hero bar -> planner carry-over -----------------------------------
+  // The hero box and step 1 ask for the same four things, so whatever is
+  // entered up there is mirrored into the One-way fields down here. Address
+  // fields only reach this path when Maps isn't live (they're plain inputs
+  // then); with Maps on, they're carried over in the Maps section below.
+  function mirrorInput(fromId, toId) {
+    var from = document.getElementById(fromId);
+    var to = document.getElementById(toId);
+    if (!from || !to) return;
+    ['input', 'change'].forEach(function (evt) {
+      from.addEventListener(evt, function () {
+        to.value = from.value;
+        to.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+    });
+  }
+  mirrorInput('he-pickup', 'bk-pickup');
+  mirrorInput('he-dropoff', 'bk-dropoff');
+  mirrorInput('he-date', 'bk-date');
+  mirrorInput('he-time', 'bk-time');
 
   var airportSelect = document.getElementById('bk-airport');
   if (airportSelect) airportSelect.addEventListener('change', function () {
@@ -171,29 +183,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!state.date || !state.time) {
       showError(1, 'Please choose a date and pickup time.'); return;
     }
+    if (!(parseInt(state.passengers, 10) >= 1)) {
+      showError(1, 'Please tell us how many passengers are travelling.'); return;
+    }
     showStep(2);
-  });
-
-  // ---- Vehicle selection --------------------------------------------------
-  var vehicleCards = document.querySelectorAll('.vehicle-card');
-  vehicleCards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      state.vehicle = card.getAttribute('data-vehicle');
-      vehicleCards.forEach(function (c) { c.classList.toggle('is-selected', c === card); });
-      clearError(2);
-    });
-  });
-  document.querySelector('[data-next="3"]').addEventListener('click', function () {
-    if (!state.vehicle) { showError(2, 'Please choose a vehicle to continue.'); return; }
-    showStep(3);
-  });
-
-  // ---- Step 3 -> 4 --------------------------------------------------------
-  document.querySelector('[data-next="4"]').addEventListener('click', function () {
-    clearError(3);
-    if (!state.name.trim()) { showError(3, 'Please add your name.'); return; }
-    if (!state.phone.trim() && !state.email.trim()) { showError(3, 'Please add a phone number or email so we can reply.'); return; }
-    showStep(4);
   });
 
   // ---- Back buttons ---------------------------------------------------
@@ -250,12 +243,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var dl = document.querySelector('[data-summary]');
     if (!dl) return;
     var rows = journeyLines();
-    rows.push(['Vehicle', VEHICLE_NAMES[state.vehicle] || 'Not selected']);
-    rows.push(['Name', state.name || 'Not specified']);
-    rows.push(['Phone', state.phone || '—']);
-    rows.push(['Email', state.email || '—']);
-    rows.push(['Passengers', state.passengers || '1']);
-    if (state.notes) rows.push(['Notes', state.notes]);
+    rows.push(['Passengers', state.passengers || 'Not specified']);
 
     dl.innerHTML = rows.map(function (r) {
       return '<div class="summary-row"><dt>' + escapeHtml(r[0]) + '</dt><dd>' + escapeHtml(r[1]) + '</dd></div>';
@@ -265,17 +253,16 @@ document.addEventListener('DOMContentLoaded', function () {
   function buildMessageText() {
     var lines = ['Hi, I\'d like to request a booking:'];
     journeyLines().forEach(function (r) { lines.push(r[0] + ': ' + r[1]); });
-    lines.push('Vehicle: ' + (VEHICLE_NAMES[state.vehicle] || 'Not selected'));
+    lines.push('Passengers: ' + (state.passengers || 'Not specified'));
     lines.push('Name: ' + (state.name || 'Not specified'));
-    lines.push('Phone: ' + (state.phone || 'Not specified'));
-    lines.push('Email: ' + (state.email || 'Not specified'));
-    lines.push('Passengers: ' + (state.passengers || '1'));
     if (state.notes) lines.push('Notes: ' + state.notes);
     return lines.join('\n');
   }
 
   document.querySelectorAll('[data-submit]').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      clearError(2);
+      if (!state.name.trim()) { showError(2, 'Please add your name.'); return; }
       var text = buildMessageText();
       if (btn.getAttribute('data-submit') === 'whatsapp') {
         window.open('https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
@@ -288,9 +275,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // ---- Google Maps: address autocomplete + route preview ----------------
   // Everything above works with zero API key. This section is a progressive
-  // enhancement, same pattern as the Supabase keys in index.html: if
-  // window.GOOGLE_MAPS_API_KEY is blank, the address fields stay plain text
-  // and the panel on the right shows a placeholder instead of a map.
+  // enhancement: if window.GOOGLE_MAPS_API_KEY is blank, the address fields
+  // stay plain text and the panel on the right shows a placeholder instead
+  // of a map.
   var map, directionsService, directionsRenderer;
 
   if (MAPS_API_KEY) {
@@ -349,6 +336,8 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
+    var wizardEls = {};
+
     upgradeAddressField('pickup', 'pickup', 'pickupLoc');
     upgradeAddressField('dropoff', 'dropoff', 'dropoffLoc');
     upgradeAddressField('airportAddress', 'airportAddress', 'airportAddressLoc');
@@ -370,6 +359,20 @@ document.addEventListener('DOMContentLoaded', function () {
       el.style.width = '100%';
     }
 
+    // Called when an address is picked in the hero bar: drops it (text +
+    // coordinates) into the planner's matching One-way field and redraws the
+    // route, so a visitor who starts up top doesn't retype it in step 1.
+    function carryHeroAddress(wizardKey, place) {
+      var target = wizardEls[wizardKey];
+      var text = place.formattedAddress || '';
+      if (!target || !text) return;
+      try { target.value = text; } catch (e) { return; }
+      if (target.value !== text) return;
+      state[wizardKey] = text;
+      state[wizardKey + 'Loc'] = place.location ? { lat: place.location.lat(), lng: place.location.lng() } : null;
+      updateRoutePreview();
+    }
+
     function upgradeAddressField(role, stateKey, locKey) {
       var wrapper = document.querySelector('[data-address-role="' + role + '"]');
       if (!wrapper) return;
@@ -381,6 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       wrapper.appendChild(el);
       if (plainInput) plainInput.style.display = 'none';
+      wizardEls[stateKey] = el;
 
       el.addEventListener('gmp-select', async function (evt) {
         var place = evt.placePrediction.toPlace();
@@ -406,11 +410,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
       el.addEventListener('gmp-select', async function (evt) {
         var place = evt.placePrediction.toPlace();
-        await place.fetchFields({ fields: ['formattedAddress'] });
+        await place.fetchFields({ fields: ['formattedAddress', 'location'] });
         // Write straight into the (hidden) original input so the hero bar's
         // existing WhatsApp/email message-building in main.js — which reads
         // this input's .value directly — keeps working completely unchanged.
         plainInput.value = place.formattedAddress || '';
+        carryHeroAddress(role === 'heroPickup' ? 'pickup' : 'dropoff', place);
       });
     }
 

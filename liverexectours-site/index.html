@@ -23,7 +23,6 @@
     <ul class="nav-links">
       <li><a href="#top">Home</a></li>
       <li><a href="#fleet">Fleet</a></li>
-      <li><a href="#book">Book Now</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-cta">
@@ -168,9 +167,9 @@
 <!-- ===================== BOOK ===================== -->
 <section id="book" class="section">
   <div class="container">
-    <span class="eyebrow">Book a Journey</span>
-    <h2>Plan your journey in four steps</h2>
-    <p class="section-intro">Tell us your journey, pick a vehicle, and send your details straight to us — we confirm pricing and availability by phone or email. No card details needed to request a booking.</p>
+    <span class="eyebrow">Plan Trip</span>
+    <h2>Plan your journey in two steps</h2>
+    <p class="section-intro">Tell us where and when, and how many are travelling — we confirm the best vehicle, pricing and availability by phone or email. No card details needed.</p>
 
     <div class="wizard-stepper" data-stepper>
       <div class="wizard-step-item is-current" data-step-item="1">
@@ -180,17 +179,7 @@
       <div class="wizard-step-connector"></div>
       <div class="wizard-step-item" data-step-item="2">
         <span class="wizard-step-circle">2</span>
-        <span class="wizard-step-label">Vehicle</span>
-      </div>
-      <div class="wizard-step-connector"></div>
-      <div class="wizard-step-item" data-step-item="3">
-        <span class="wizard-step-circle">3</span>
-        <span class="wizard-step-label">Passenger</span>
-      </div>
-      <div class="wizard-step-connector"></div>
-      <div class="wizard-step-item" data-step-item="4">
-        <span class="wizard-step-circle">4</span>
-        <span class="wizard-step-label">Confirm</span>
+        <span class="wizard-step-label">Your details</span>
       </div>
     </div>
 
@@ -332,107 +321,40 @@
             </div>
           </div>
 
+          <div class="field-group">
+            <label for="bk-passengers">Passengers</label>
+            <input type="number" id="bk-passengers" min="1" inputmode="numeric" placeholder="How many are travelling?">
+            <span class="muted">We&rsquo;ll match the right vehicle to your group size.</span>
+          </div>
+
           <p class="field-error" data-step-error hidden></p>
 
           <div class="wizard-actions">
             <span></span>
-            <button type="button" class="btn btn-primary" data-next="2">Next: Choose vehicle &rarr;</button>
+            <button type="button" class="btn btn-primary" data-next="2">Next: Your details &rarr;</button>
           </div>
         </div>
 
-        <!-- STEP 2: VEHICLE -->
+        <!-- STEP 2: YOUR DETAILS + SEND -->
         <div class="wizard-panel" data-step="2" hidden>
-          <h3 class="wizard-panel-title">Choose your vehicle</h3>
-
-          <div class="vehicle-grid">
-            <button type="button" class="vehicle-card" data-vehicle="vito">
-              <div class="fleet-photo">
-                <img src="images/fleet-vito.jpg" alt="Liver Exec Tours Mercedes Vito">
-              </div>
-              <h3>Mercedes Vito <span class="muted">(2018)</span></h3>
-              <p>Comfortable executive travel for small groups.</p>
-              <ul class="fleet-specs">
-                <li><strong>7</strong> seats</li>
-                <li>Corporate &amp; airport</li>
-              </ul>
-            </button>
-            <button type="button" class="vehicle-card" data-vehicle="lexus">
-              <div class="fleet-photo fleet-photo-placeholder">
-                <span class="ph-label">Photo coming soon</span>
-                <span class="ph-sub">Lexus SUV</span>
-              </div>
-              <h3>Lexus SUV</h3>
-              <p>Our luxury tier for VIP and executive clients.</p>
-              <ul class="fleet-specs">
-                <li><strong>3</strong> seats</li>
-                <li>Premium &amp; discreet</li>
-              </ul>
-            </button>
-            <button type="button" class="vehicle-card" data-vehicle="sprinter">
-              <div class="fleet-photo">
-                <img src="images/fleet-sprinter.jpg" alt="Liver Exec Tours Mercedes Sprinter minibus">
-              </div>
-              <h3>Mercedes Sprinter</h3>
-              <p>Full-group transport for events and match days.</p>
-              <ul class="fleet-specs">
-                <li><strong>16</strong> seats</li>
-                <li>Groups &amp; events</li>
-              </ul>
-            </button>
-          </div>
-
-          <p class="vehicle-note">We'll confirm exact pricing and availability when we get back to you &mdash; no payment needed to request a booking.</p>
-          <p class="field-error" data-step-error hidden></p>
-
-          <div class="wizard-actions">
-            <button type="button" class="btn btn-outline" data-prev="1">&larr; Back</button>
-            <button type="button" class="btn btn-primary" data-next="3">Next: Your details &rarr;</button>
-          </div>
-        </div>
-
-        <!-- STEP 3: PASSENGER -->
-        <div class="wizard-panel" data-step="3" hidden>
-          <h3 class="wizard-panel-title">Passenger details</h3>
+          <h3 class="wizard-panel-title">Your details</h3>
 
           <div class="field-group">
             <label for="bk-name">Name</label>
-            <input type="text" id="bk-name">
-          </div>
-          <div class="field-row">
-            <div class="field-group">
-              <label for="bk-phone">Phone</label>
-              <input type="tel" id="bk-phone">
-            </div>
-            <div class="field-group">
-              <label for="bk-email">Email</label>
-              <input type="email" id="bk-email">
-            </div>
-          </div>
-          <div class="field-group">
-            <label for="bk-passengers">Number of passengers</label>
-            <input type="number" id="bk-passengers" min="1" value="1">
+            <input type="text" id="bk-name" autocomplete="name">
           </div>
           <div class="field-group">
             <label for="bk-notes">Notes <span class="muted">(optional)</span></label>
-            <textarea id="bk-notes" placeholder="Meet & greet, extra luggage, child seat, etc."></textarea>
+            <textarea id="bk-notes" placeholder="Vehicle preference (e.g. Lexus), luggage, child seat, meet &amp; greet..."></textarea>
           </div>
+
+          <p class="return-fields-heading summary-heading">Your trip</p>
+          <dl class="booking-summary" data-summary></dl>
 
           <p class="field-error" data-step-error hidden></p>
 
-          <div class="wizard-actions">
-            <button type="button" class="btn btn-outline" data-prev="2">&larr; Back</button>
-            <button type="button" class="btn btn-primary" data-next="4">Next: Review &rarr;</button>
-          </div>
-        </div>
-
-        <!-- STEP 4: CONFIRM -->
-        <div class="wizard-panel" data-step="4" hidden>
-          <h3 class="wizard-panel-title">Review &amp; send</h3>
-
-          <dl class="booking-summary" data-summary></dl>
-
           <div class="wizard-actions wizard-actions-confirm">
-            <button type="button" class="btn btn-outline" data-prev="3">&larr; Back</button>
+            <button type="button" class="btn btn-outline" data-prev="1">&larr; Back</button>
             <div class="confirm-send-buttons">
               <button type="button" class="btn btn-primary" data-submit="whatsapp">Send via WhatsApp</button>
               <button type="button" class="btn btn-outline" data-submit="email">Send via Email</button>
@@ -478,7 +400,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">How do I get a quote? <span class="faq-icon" aria-hidden="true">+</span></button>
-        <div class="faq-a" hidden>Fill in the enquiry form or call us directly. We usually reply within 2–3 hours and will confirm availability and pricing for your journey.</div>
+        <div class="faq-a" hidden>Use Plan Trip above or call us directly. We usually reply within 2–3 hours and will confirm availability and pricing for your journey.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Which airports do you cover? <span class="faq-icon" aria-hidden="true">+</span></button>
@@ -500,77 +422,7 @@
   </div>
 </section>
 
-<!-- ===================== CONTACT ===================== -->
-<section id="contact" class="section section-alt">
-  <div class="container">
-    <span class="eyebrow">Contact</span>
-    <h2>Let's get your journey booked</h2>
-    <p class="section-intro">Call, email, or send the form below with your trip details — we usually reply the same day.</p>
-
-    <div class="contact-grid">
-      <div>
-        <div class="contact-item">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h3l1.5 4-2 1.5a13 13 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7 2 2 0 0 1 6.5 3.5z"/></svg></div>
-          <div>
-            <h3>Phone</h3>
-            <p><a href="tel:+447808299060">07808 299060</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4.5 7l7.5 6 7.5-6"/></svg></div>
-          <div>
-            <h3>Email</h3>
-            <p><a href="mailto:info@liverexectours.com">info@liverexectours.com</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.2 7-12a7 7 0 0 0-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg></div>
-          <div>
-            <h3>Service area</h3>
-            <p>Liverpool, Wirral, Sefton, Knowsley, St Helens, and Manchester as our core area — plus long-distance journeys and airport transfers UK-wide, including regular trips to London.</p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></svg></div>
-          <div>
-            <h3>Availability</h3>
-            <p>Bookings taken by appointment — call or email any time and we'll confirm availability.</p>
-          </div>
-        </div>
-      </div>
-
-      <form class="enquiry">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone">
-
-        <label for="service">What do you need?</label>
-        <select id="service" name="service">
-          <option>Corporate travel</option>
-          <option>Airport transfer</option>
-          <option>Event / match day transport</option>
-          <option>Executive / VIP hire</option>
-          <option>Group / minibus hire</option>
-          <option>Other</option>
-        </select>
-
-        <label for="message">Trip details</label>
-        <textarea id="message" name="message" placeholder="Dates, times, pickup/drop-off, group size..." required></textarea>
-
-        <button type="submit" class="btn btn-primary">Send Enquiry</button>
-        <p class="form-status" aria-live="polite"></p>
-        <p class="form-note">Prefer to talk it through? Call <a href="tel:+447808299060">07808 299060</a>.</p>
-      </form>
-    </div>
-  </div>
-</section>
-
-<footer class="site-footer">
+<footer class="site-footer" id="contact">
   <div class="container">
     <div class="footer-grid">
       <div>
@@ -582,9 +434,8 @@
         <ul>
           <li><a href="#top">Home</a></li>
           <li><a href="#fleet">Fleet</a></li>
-          <li><a href="#book">Book Now</a></li>
+          <li><a href="#book">Plan Trip</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
       <div>
@@ -592,7 +443,8 @@
         <ul>
           <li><a href="tel:+447808299060">07808 299060</a></li>
           <li><a href="mailto:info@liverexectours.com">info@liverexectours.com</a></li>
-          <li><p class="footer-plain">Liverpool &amp; North West</p></li>
+          <li><p class="footer-plain">Liverpool, Wirral, Sefton, Knowsley, St Helens and Manchester &mdash; plus UK-wide long-distance journeys and airport transfers, including regular trips to London.</p></li>
+          <li><p class="footer-plain">By appointment &mdash; call or email any time to confirm availability.</p></li>
         </ul>
       </div>
     </div>
@@ -603,20 +455,12 @@
   </div>
 </footer>
 
-<script>
-  // Fill these in from Supabase Dashboard → Project Settings → API,
-  // then the enquiry form below will submit into the `enquiries` table
-  // (see supabase/enquiries.sql) instead of just opening a mail client.
-  window.SUPABASE_URL = "";
-  window.SUPABASE_ANON_KEY = "";
-</script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/edit-mode.js"></script>
 <script>
   // Add a Google Maps Platform API key (Places API + Maps JavaScript API +
   // Directions API enabled on it) to switch on live address autocomplete and
-  // the route preview panel in the "Book a Journey" section. Leave this
+  // the route preview panel in the "Plan Trip" section. Leave this
   // blank and the section still works end to end — address fields are just
   // plain text, and the panel explains what's missing instead of a map.
   window.GOOGLE_MAPS_API_KEY = "AIzaSyAjnq06eiXMUTLeWrpWZ5s4MYD_nFmG6zo";
