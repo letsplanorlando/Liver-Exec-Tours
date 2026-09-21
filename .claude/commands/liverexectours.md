@@ -43,9 +43,10 @@ If nothing is stale, say: "Everything's up to date. What are we working on?"
 
 ## Rules while working
 
-- Run all git/terminal commands directly — never give Joe copy-paste instructions
-- Discuss design or structural changes before building them
-- Phone number is 07808 299060 (5+ places in index.html, and 447808299060 in main.js)
-- Brass colour is #C4973A — text on brass is always #ffffff
-- Never name Carlsberg or Boodles publicly — use "trusted by leading Liverpool corporates and retail brands"
-- GitHub Pages (letsplanorlando.github.io/Liver-Exec-Tours) auto-deploys on push to main — production is BigWetFish (manual upload)
+- Run all git/terminal commands directly — never give Joe copy-paste instructions. But only commit when he asks, and only push when he says "push".
+- Discuss design or structural changes before building them.
+- Joe's laptop keyboard currently inserts stray full stops — ignore them. Ask decisions as short numbered questions in chat (answerable with a word or number), not popup multiple-choice.
+- `CLAUDE.md` is the source of truth for facts — don't rely on values copied into this file, they go stale. In particular check it for: the palette (text on the champagne accent is dark, never white), where the phone number and email live, and the client-naming rule (never name the clients it lists anywhere public-facing — testimonial attributions included; use "trusted by leading Liverpool corporates and retail brands").
+- GitHub Pages (letsplanorlando.github.io/Liver-Exec-Tours) auto-deploys on every push to `main` and is public. Production (liverexectours.com) is BigWetFish, updated by manual upload — follow `website-upload-guide.md` § 3 (Joe types the cPanel password himself, in a Chrome window Claude opens).
+- Don't ship placeholder content to production without asking Joe. (The testimonials are the one deliberate exception, shipped 2026-09-20 — see CLAUDE.md § Open items.)
+- Stop the local preview server (`range_server.py`) when you're done with it — it listens on the whole network.
