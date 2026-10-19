@@ -31,7 +31,7 @@ There's no FTP or git-based auto-deploy set up for production — this manual re
 
 ## 3. Quick update — only the files that changed (worked 2026-09-20)
 
-Most updates touch a handful of small files, so skip the big zips. Last upload = git commit `469c861` (2026-09-20).
+Most updates touch a handful of small files, so skip the big zips. Last upload = git commit `8a54af1` (2026-10-19; `index.html` + `css/style.css`). Previous: `469c861` (2026-09-20).
 
 1. **Pack only what changed.** `git diff --stat <last-uploaded-commit> HEAD -- liverexectours-site` lists it. Zip just those files with their relative paths (`index.html`, `css/…`, `js/…`), run from inside `liverexectours-site`. Check each file in the zip matches `git show HEAD:liverexectours-site/<file>` (compare `shasum`). *zsh gotcha:* keep the file list in an array (`FILES=(a b c)` and `"${FILES[@]}"`) — an unquoted `$FILES` doesn't word-split in zsh.
 2. **Check the live site hasn't been touched.** For each file, `curl -s https://liverexectours.com/<file> | shasum` should equal `git show <last-uploaded-commit>:liverexectours-site/<file> | shasum`. A mismatch means someone changed the live site — stop and look (this account has had a break-in, see the memory note).
@@ -42,3 +42,12 @@ Most updates touch a handful of small files, so skip the big zips. Last upload =
 7. **Tidy up.** Close the Claude-opened window and log out of cPanel. The zip left in `/home/realmome` is harmless; delete it whenever.
 
 **Rollback:** re-upload the previous versions from git (`git show <last-uploaded-commit>:liverexectours-site/<file>`) the same way.
+
+
+## Tips learned 2026-10-19
+
+- The device shell has no internet, so don't hash the live site with curl (it returns the empty-string hash `da39a3ee…`). Hash live files with JS `crypto.subtle` in Chrome instead.
+- Stage the zip with `device_stage_files` first; `file_upload` only accepts files under `/mnt/user-data/uploads/`.
+- If the live site shows old CSS after upload, force a refresh: `fetch(url, {cache:'reload'})`.
+- Joe types the cPanel password himself; log out and close the tab after.
+- Upload zips are left in the hosting home folder (not public) and can be deleted.
