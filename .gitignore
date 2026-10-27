@@ -1,3 +1,9 @@
 .DS_Store
 _to_delete/
 liverexectours-site/index.html.bak
+
+# Private retainer drafts - keep out of the public repo
+Liver Exec Tours Retainer Agreement*.docx
+
+# Private launch plan notes
+launch-plan-oct-2026.md
