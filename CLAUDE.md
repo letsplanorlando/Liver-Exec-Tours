@@ -2,7 +2,7 @@
 
 *Current-state doc for the website/digital side of the business. Read it first at the start of any session working in this folder. Wider business picture (Hugh/Joe structure, licensing, growth plan) is in the Project's `business-overview-and-plan.md` (private, not in this repo); the Oct 2026 launch list is in `launch-plan-oct-2026.md`. Older history (design iterations, debugging stories, per-session log) lives in `CLAUDE-archive.md`.*
 
-*Last updated: 2026-10-27*
+*Last updated: 2026-11-05*
 
 ## Session start protocol — confirm these every session
 
@@ -14,7 +14,11 @@
 - **Client-naming rule:** never name any client (site, socials, GBP, testimonials, public repo). Use "trusted by leading Liverpool corporates and retail brands". Testimonial attributions are generic: "Corporate client" / "Agency client" / "Retail client". Who the clients are lives in private notes, not in this file.
 - **This folder is the primary working location** for website files, fleet assets and this doc. It supersedes the Claude Project's copy for website content.
 - **Hosting is manual upload to BigWetFish** (Joe's choice) — not auto-deploy. The GitHub repo (`github.com/letsplanorlando/Liver-Exec-Tours`) is version history/backup plus a live GitHub Pages preview (`https://letsplanorlando.github.io/Liver-Exec-Tours/`). Pushing to `main` updates Pages only, **not** BigWetFish. Production deploys follow `website-upload-guide.md` (§ 3 is the fast flow: zip only changed files; Joe types the cPanel password himself in a Chrome window Claude opens).
-- **Production = git commit `8a54af1` (live 2026-10-19):** footer "Verified on Google" badge (links to the Google reviews and the review link `https://g.page/r/CS5HVbeX7Kk3EBM/review`), LocalBusiness JSON-LD in `<head>` (no street address), and footer hours wording "Bookings taken 24 hours a day" to match the Google Business Profile. Uploaded via the cPanel quick-update flow (`index.html` + `css/style.css`), live hashes verified. Previous upload: `469c861` (2026-09-20). Update this line and the upload guide after every upload.
+- **Production = git commit `eb1051b` (live 2026-11-05): the full redesign.** It went up through the quick-update flow: a 28-file zip of everything changed since `8a54af1`, extracted over the live folder, with all 28 live hashes verified and Maps confirmed loading on the live domain.
+  - **Server backup** of the old live folder: `/home/realmome/liverexectours-live-backup-2026-11-05.zip`. The old version is also git commit `8a54af1`.
+  - Previous upload: `8a54af1` (2026-10-19).
+  - Update this line and the upload guide after every upload.
+  - **Sections 1–2 below still describe the pre-redesign site and need a rewrite.** Until then, the memory note `project-redesign-2026-10.md` is the best guide to the new pages and data files.
 - **The Google Business Profile address is private. Never show it anywhere public** (site, JSON-LD, GBP, socials) and never write it into this repo.
 - **Terminal commands:** Claude runs git and shell commands directly. Commit only when Joe asks; push only when he says "push".
 - **How Joe likes to work:** ignore stray full stops (his laptop keyboard inserts them); ask decisions as short numbered questions (popup questions are fine when he asks for them); discuss design/structure changes before building them; don't ship new placeholder content without asking. A fresh chat starts with `/liverexectours`, which reads this file and the memory notes.
