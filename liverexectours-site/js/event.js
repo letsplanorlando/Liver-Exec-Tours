@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var v = ev.vehicles[key];
       var li = document.createElement('li');
       var label = document.createElement('span');
-      label.innerHTML = 'All ' + VEHICLES[key].seats.length + ' seats on the ' + VEHICLES[key].name + ' &mdash; <strong></strong>';
+      label.innerHTML = 'All ' + VEHICLES[key].seats.length + ' seats on the ' + VEHICLES[key].name + ': <strong></strong>';
       label.querySelector('strong').textContent = v.privatePrice || 'ask for a price';
       var link = document.createElement('a');
       link.className = 'btn btn-ghost-light';
