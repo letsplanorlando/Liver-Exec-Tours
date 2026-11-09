@@ -53,8 +53,9 @@ window.LET_SHUTTLES = {
         { key: '2027-03-19', label: 'Fri 19 Mar 2027', cutoff: 'Sun 14 Mar', closes: '2027-03-14' }
       ],
       vehicles: {
-        sprinter: { price: '£115', pricePence: 11500, privatePrice: '£1,950', minSeats: 13, bookedSeats: {} },
-        vito: { price: '£150', pricePence: 15000, privatePrice: '£950', minSeats: 5, bookedSeats: {} }
+        // Whole-vehicle price = 15 Sprinter seats / 5 Vito seats (Joe, 2026-11-09).
+        sprinter: { price: '£95', pricePence: 9500, privatePrice: '£1,425', minSeats: 13, bookedSeats: {} },
+        vito: { price: '£105', pricePence: 10500, privatePrice: '£525', minSeats: 5, bookedSeats: {} }
       }
     },
     {
@@ -82,9 +83,9 @@ window.LET_SHUTTLES = {
         { key: '2027-06-26', label: 'Sat 26 Jun 2027', cutoff: 'Mon 21 Jun', closes: '2027-06-21' }
       ],
       vehicles: {
-        // Whole-vehicle price = 15 Sprinter seats / 6 Vito seats (Joe).
-        sprinter: { price: '£40', pricePence: 4000, privatePrice: '£600', minSeats: 13, bookedSeats: {} },
-        vito: { price: '£65', pricePence: 6500, privatePrice: '£390', minSeats: 5, bookedSeats: {} }
+        // Whole-vehicle price = 15 Sprinter seats / 5 Vito seats (Joe, 2026-11-09).
+        sprinter: { price: '£39.99', pricePence: 3999, privatePrice: '£599.85', minSeats: 13, bookedSeats: {} },
+        vito: { price: '£59.99', pricePence: 5999, privatePrice: '£299.95', minSeats: 5, bookedSeats: {} }
       }
     }
   ]

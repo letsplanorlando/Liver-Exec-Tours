@@ -121,7 +121,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var book = document.querySelector('[data-default-trip]');
     if (!book) return;
     var tab = book.querySelector('[data-trip-tab="' + book.getAttribute('data-default-trip') + '"]');
-    if (tab) window.addEventListener('load', function () { tab.click(); });
+    // Airport pages can also pre-pick the airport (data-default-airport is
+    // the option's exact text).
+    var airport = book.getAttribute('data-default-airport');
+    var select = document.getElementById('bk-airport');
+    window.addEventListener('load', function () {
+      if (tab) tab.click();
+      if (airport && select) {
+        select.value = airport;
+        select.dispatchEvent(new Event('change'));
+      }
+    });
   })();
 
   // ---- "Airport" links → Plan Trip with Airport Transfer selected ------
