@@ -2,7 +2,7 @@
 
 *Current-state doc for the website/digital side of the business. Read it first at the start of any session working in this folder. Wider business picture (Hugh/Joe structure, licensing, growth plan) is in the Project's `business-overview-and-plan.md` (private, not in this repo); the Oct 2026 launch list is in `launch-plan-oct-2026.md`. Older history (design iterations, debugging stories, per-session log) lives in `CLAUDE-archive.md`.*
 
-*Last updated: 2026-11-05*
+*Last updated: 2026-11-09*
 
 ## Session start protocol — confirm these every session
 
@@ -14,7 +14,7 @@
 - **Client-naming rule:** never name any client (site, socials, GBP, testimonials, public repo). Use "trusted by leading Liverpool corporates and retail brands". Testimonial attributions are generic: "Corporate client" / "Agency client" / "Retail client". Who the clients are lives in private notes, not in this file.
 - **This folder is the primary working location** for website files, fleet assets and this doc. It supersedes the Claude Project's copy for website content.
 - **Hosting is manual upload to BigWetFish** (Joe's choice) — not auto-deploy. The GitHub repo (`github.com/letsplanorlando/Liver-Exec-Tours`) is version history/backup plus a live GitHub Pages preview (`https://letsplanorlando.github.io/Liver-Exec-Tours/`). Pushing to `main` updates Pages only, **not** BigWetFish. Production deploys follow `website-upload-guide.md` (§ 3 is the fast flow: zip only changed files; Joe types the cPanel password himself in a Chrome window Claude opens).
-- **Production = git commit `eb1051b` (live 2026-11-05): the full redesign.** It went up through the quick-update flow: a 28-file zip of everything changed since `8a54af1`, extracted over the live folder, with all 28 live hashes verified and Maps confirmed loading on the live domain.
+- **Production = git commit `82afa5a` (live 2026-11-09): cooler palette (brand silver back, cool greys), fewer small-caps labels, dash-free copy, cookies section, Cloudflare Web Analytics on every page, Search Console tag, sitemap.xml + robots.txt.** 19 files uploaded via the quick-update flow, all hashes verified; server backup `/home/realmome/liverexectours-live-backup-2026-11-09.zip`. Before that: `eb1051b` (2026-11-05), the full redesign: It went up through the quick-update flow: a 28-file zip of everything changed since `8a54af1`, extracted over the live folder, with all 28 live hashes verified and Maps confirmed loading on the live domain.
   - **Server backup** of the old live folder: `/home/realmome/liverexectours-live-backup-2026-11-05.zip`. The old version is also git commit `8a54af1`.
   - Previous upload: `8a54af1` (2026-10-19).
   - Update this line and the upload guide after every upload.

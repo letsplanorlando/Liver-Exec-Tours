@@ -31,7 +31,7 @@ There's no FTP or git-based auto-deploy set up for production — this manual re
 
 ## 3. Quick update — only the files that changed (worked 2026-09-20)
 
-Most updates touch a handful of small files, so skip the big zips. Last upload = git commit `eb1051b` (2026-11-05; full redesign, 28 changed/new files in one zip, extracted over the live folder via the API2 `Fileman::fileop` extract call; server backup zip made first with `fileop` compress). Previous: `8a54af1` (2026-10-19).
+Most updates touch a handful of small files, so skip the big zips. Last upload = git commit `82afa5a` (2026-11-09; 19 files, backup zip first). Before that: `eb1051b` (2026-11-05; full redesign, 28 changed/new files in one zip, extracted over the live folder via the API2 `Fileman::fileop` extract call; server backup zip made first with `fileop` compress). Previous: `8a54af1` (2026-10-19).
 
 1. **Pack only what changed.** `git diff --stat <last-uploaded-commit> HEAD -- liverexectours-site` lists it. Zip just those files with their relative paths (`index.html`, `css/…`, `js/…`), run from inside `liverexectours-site`. Check each file in the zip matches `git show HEAD:liverexectours-site/<file>` (compare `shasum`). *zsh gotcha:* keep the file list in an array (`FILES=(a b c)` and `"${FILES[@]}"`) — an unquoted `$FILES` doesn't word-split in zsh.
 2. **Check the live site hasn't been touched.** For each file, `curl -s https://liverexectours.com/<file> | shasum` should equal `git show <last-uploaded-commit>:liverexectours-site/<file> | shasum`. A mismatch means someone changed the live site — stop and look (this account has had a break-in, see the memory note).
