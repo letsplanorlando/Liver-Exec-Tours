@@ -1,0 +1,17 @@
+# Liver Exec Tours: send every visitor to one main address,
+# https://liverexectours.com/ (no www, always https, no /index.html).
+# On the server this block sits ABOVE cPanel's own
+# "# php -- BEGIN cPanel-generated handler" block. Keep that block when uploading.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# http or www -> https://liverexectours.com (certificate checks under /.well-known stay as they are)
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://liverexectours.com%{REQUEST_URI} [L,R=301]
+
+# /index.html -> /
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
+RewriteRule ^index\.html$ https://liverexectours.com/ [L,R=301]
+</IfModule>
