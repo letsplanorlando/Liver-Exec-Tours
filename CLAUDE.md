@@ -92,6 +92,9 @@ Liverexectours/
 
 ## 3. Open items
 
+- [ ] **Outlook shows "Unverified Sender" on mail from info@ (tested 2026-11-12).** Gmail sends info@ via smtp.gmail.com, so the mail is DKIM-signed by googlemail.com and the envelope sender is googlemail.com. Neither matches the From domain, so DMARC fails (p=none, so it still gets delivered, but Outlook flags it). Planned fix (free): create a real `info@` mailbox in cPanel, keep the forwarder to Gmail, give it a small quota and a filter, and switch Gmail's "Send mail as" for info@ to BigWetFish SMTP (`mail.liverexectours.com`, 465 SSL/587 TLS). BigWetFish signs with `default._domainkey`, so DKIM should align. Check first that server815's IP (185.211.23.115) isn't on a blacklist, because it's shared with the compromised realmoments.co.uk. Joe sets and types the mailbox password. Alternative: Google Workspace (about £6 a month). Also, the Gmail phone app ignores the web signature: Joe to set a plain-text Mobile Signature in the app.
+
+
 **Read `launch-plan-oct-2026.md` first** (private, gitignored: ten ideas and the decisions still needed). **Launch-plan website work (due Fri 30 Oct, item 10):** new sections for airport shuttle, event shuttles, corporate, partner programme; terms + privacy page; Instagram/TikTok icons in footer + JSON-LD `sameAs`; logo mark + favicon; Search Console. None of it exists in the current page structure yet. Licensing for seat-selling: Joe confirmed it's fine (2026-11-02).
 
 - [ ] **Testimonials** — replace placeholders with real approved wording (sources: Google reviews, texts/emails Hugh has kept; each client OKs being quoted).
