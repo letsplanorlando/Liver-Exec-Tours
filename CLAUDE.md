@@ -2,7 +2,7 @@
 
 *Current-state doc for the website/digital side of the business. Read it first at the start of any session working in this folder. Wider business picture (Hugh/Joe structure, licensing, growth plan) is in the Project's `business-overview-and-plan.md` (private, not in this repo); the Oct 2026 launch list is in `launch-plan-oct-2026.md`. Older history (design iterations, debugging stories, per-session log) lives in `CLAUDE-archive.md`.*
 
-*Last updated: 2026-11-12*
+*Last updated: 2026-11-13*
 
 ## Session start protocol — confirm these every session
 
@@ -43,12 +43,9 @@ Nav: Home / Fleet / Contact (scrolls to footer) + header "Plan Trip" button. No 
 ### About
 Three columns (`.about-cols`, `repeat(3, 1fr)`; 2 cols at 900px with the third centred and capped at 460px; 1 col at 720px), each a centred `<h3>` + one ~45-word paragraph: "20+ Years' Experience", "Who We Work With" (anonymised clients; UK-wide incl. regular London trips), "Our Fleet".
 
-### Testimonials — **LIVE AS PLACEHOLDERS (since 2026-09-20)**
-- Three `.card.testimonial` cards in `.grid-3` (one column at 900px). Quotes are Joe's own paraphrases, not approved client wording; flagged in source by an HTML comment starting `PLACEHOLDER QUOTES` (visible via view-source on the live site). Shipped knowingly at Joe's call.
-- `grep -n PLACEHOLDER liverexectours-site/index.html` (step 0 of the upload guide) flags them every time.
-- Attributions stay generic. No star ratings (no review data yet). The attribution sits in `<figcaption><span>` so `?edit=1` can edit it.
-- **To replace:** swap the text (or use `?edit=1`), delete the comment, re-upload via the quick flow. Consider a "5.0 ★ on Google" line once the GBP has reviews.
-- Plan Trip is `section-alt` (grey) and `.side-help-card` uses `--ivory` so it doesn't vanish into the grey.
+### Testimonials: real Google reviews (live since the 2026-11-05 redesign)
+- Five real Google reviews in a `.review-slider` carousel on the homepage (`#testimonials`), quoted as written, **first name only** ("Tamia · Google review" etc.); two are trimmed to their key lines. A source comment above the section records this. No placeholder wording remains, so step 0 of the upload guide (`grep PLACEHOLDER`) now prints nothing.
+- Corporate/agency/retail clients are still never named (client-naming rule above). No star rating or review count shown yet: the GBP has only a handful of reviews.
 
 ### Plan Trip (`#book`)
 - Two steps. **Step 1 "Journey details":** trip-type tabs (One-way / Airport Transfer / Hourly), per-type fields, and a shared **Passengers** field (required, blank by default on purpose — it decides which vehicle Hugh quotes). Airport has Departure / Arrival / Both (outbound + return blocks). Airport list: Commercial (Liverpool John Lennon, Manchester T1/T2/T3, Leeds Bradford, Heathrow), Private aviation (Ravenair, Signature Flight Support), Other UK airport. **Step 2 "Your details":** Name (required), Phone (required, ≥7 digits), Notes (optional), trip recap, Send via WhatsApp / Email.
@@ -66,7 +63,7 @@ Five accordion items; first answer says "Use Plan Trip above or call us directly
 `<footer id="contact">`. Explore list: Home / Fleet / Plan Trip / FAQ. "Get in touch": phone, email, service-area line (North West + UK-wide long-distance/airport incl. regular London trips), "Bookings taken 24 hours a day — call or message any time and we'll confirm availability." The footer also carries a "Verified on Google" badge linking to the reviews and the review link (no numeric rating, as the real review count is still tiny). Wording is "Liverpool and the North West"; the `<meta>`/`og:description` tags and the FAQ corporate answer still say "Merseyside" (left alone deliberately).
 
 ### Photography (`images/`)
-`hero-mobile2.jpg` (mobile hero), `hero-scrub.mp4`, `hero-poster.jpg`, `hero.jpg` (og:image only), `fleet-vito.jpg`, `fleet-sprinter.jpg`, `faqphotomobile.jpeg`; `story.jpg` and `accent-bw.jpg` are unused. **No Lexus photo yet** — the fleet card shows "Photo coming soon". Further fleet shots from the same shoot are in the Claude Project files (IMG_7479 … IMG_7529).
+`hero-mobile2.jpg` (mobile hero), `hero-scrub.mp4`, `hero-poster.jpg`, `hero.jpg` (og:image only), `fleet-vito.jpg`, `fleet-sprinter.jpg`, `fleet-lexus.jpg` (live since 2026-11-05; raw edits in `Fleet photos/Lexus*`), `faqphotomobile.jpeg`; `story.jpg` and `accent-bw.jpg` are unused. Further fleet shots from the same shoot are in the Claude Project files (IMG_7479 … IMG_7529).
 
 ## 2. File map
 
@@ -100,9 +97,9 @@ Liverexectours/
 
 **Read `launch-plan-oct-2026.md` first** (private, gitignored: ten ideas and the decisions still needed). **Launch-plan website work (due Fri 30 Oct, item 10):** new sections for airport shuttle, event shuttles, corporate, partner programme; terms + privacy page; Instagram/TikTok icons in footer + JSON-LD `sameAs`; logo mark + favicon; Search Console. None of it exists in the current page structure yet. Licensing for seat-selling: Joe confirmed it's fine (2026-11-02).
 
-- [ ] **Testimonials** — replace placeholders with real approved wording (sources: Google reviews, texts/emails Hugh has kept; each client OKs being quoted).
+- [x] **Testimonials:** done. Real Google reviews, first names only, live since 2026-11-05. Add more as reviews come in.
 - [ ] **Google Business Profile — largely optimised 2026-10-19** (service-area business with address hidden, cover photo + logo, hours 24h every day, Bookings link, two products, Q&A skipped, AI messaging declined). Still to check 24–72h later: 24-hour hours showing, Street View house photo gone, products live. Pending: review Google's suggestions + "Confirm" banner before accepting; weekly Posts (Joe uploads photos over two weeks); WhatsApp Business once Joe has the phone (07808 299060). Make sure phone is `07808 299060` and email `info@liverexectours.com` (it had the old Gmail address), align wording with the site's UK-wide/London language, and confirm which Google account owns it (`liverexectours@gmail.com` vs Hugh's `.googlemail.com`).
-- [ ] **Lexus SUV photo.**
+- [x] **Lexus SUV photo:** done. `images/fleet-lexus.jpg`, live since 2026-11-05.
 - [ ] **Favicon** (folded into launch-plan item 10 once the logo mark exists).
 - [ ] **Local preview server** listens on all interfaces and `/__save` has no auth. Fix: bind to `127.0.0.1` (Maps still works — referrer is `localhost:8844`). Not done; needs Joe's OK to change `range_server.py`. Stop the server when not in use.
 - [ ] **Client names in the public repo's history** — older commits (including the old `.claude/commands/liverexectours.md`) contain them. The repo must stay public for Pages. Current files are being cleaned; history rewrite is Joe's call.
